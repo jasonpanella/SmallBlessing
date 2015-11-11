@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Globalization;
+using System;
 //using System.Windows.Forms;
 namespace SmallBlessing.Desktop.Forms.Membership
 {
@@ -1021,24 +1022,24 @@ namespace SmallBlessing.Desktop.Forms.Membership
                 foreach (DataColumn column in table.Columns)
                 {
                     if (column.ToString() == "FirstName")                    
-                        sb.Append(string.Format("{0,-17}",column.ToString()));
+                        sb.Append(string.Format("{0,-18}",column.ToString()));
                         //sb.Append(string.Format("{0,-15}",column.ToString()));
                     else if (column.ToString() == "MI")
-                        sb.Append(string.Format("{0,-5}", column.ToString()));
+                        sb.Append(string.Format("{0,-6}", column.ToString()));
                     else if (column.ToString() == "LastName")
-                        sb.Append(string.Format("{0,-16}", column.ToString()));
+                        sb.Append(string.Format("{0,-31}", column.ToString()));
                     else if (column.ToString() == "Address")
-                        sb.Append(string.Format("{0,-51}", column.ToString()));
+                        sb.Append(string.Format("{0,-52}", column.ToString()));
                     else if (column.ToString() == "City")
-                        sb.Append(string.Format("{0,-15}", column.ToString()));
+                        sb.Append(string.Format("{0,-36}", column.ToString()));
                     else if (column.ToString() == "State")
-                        sb.Append(string.Format("{0,-15}", column.ToString()));
+                        sb.Append(string.Format("{0,-16}", column.ToString()));
                     else if (column.ToString() == "Zip")
-                        sb.Append(string.Format("{0,-15}", column.ToString()));
+                        sb.Append(string.Format("{0,-7}", column.ToString()));
                     else if (column.ToString() == "Phone")
-                        sb.Append(string.Format("{0,-15}", column.ToString()));
+                        sb.Append(string.Format("{0,-16}", column.ToString()));
                     else if (column.ToString() == "ChurchHomeName")
-                        sb.Append(string.Format("{0,-30}", column.ToString()));
+                        sb.Append(string.Format("{0,-31}", column.ToString()));
                     else if (column.ToString() == "BirthDate")
                         sb.Append(string.Format("{0,-15}", column.ToString()));
 
@@ -1069,21 +1070,21 @@ namespace SmallBlessing.Desktop.Forms.Membership
                     //else if (column.ToString() == "MI")
                         sb.Append(string.Format("|{0,-5}", itemArray[2].ToString()));
                     //else if (column.ToString() == "LastName")
-                        sb.Append(string.Format("|{0,-16}", itemArray[3].ToString()));
+                        sb.Append(string.Format("|{0,-30}", itemArray[3].ToString()));
                     //else if (column.ToString() == "Address")
                         sb.Append(string.Format("|{0,-51}", itemArray[4].ToString()));
                     //else if (column.ToString() == "City")
-                        sb.Append(string.Format("|{0,-15}", itemArray[5].ToString()));
+                        sb.Append(string.Format("|{0,-35}", itemArray[5].ToString()));
                     //else if (column.ToString() == "State")
                         sb.Append(string.Format("|{0,-15}", itemArray[6].ToString()));
                     //else if (column.ToString() == "Zip")
-                        sb.Append(string.Format("|{0,-15}", itemArray[7].ToString()));
+                        sb.Append(string.Format("|{0,-6}", itemArray[7].ToString()));
                     //else if (column.ToString() == "Phone")
                         sb.Append(string.Format("|{0,-15}", itemArray[8].ToString()));
                     //else if (column.ToString() == "ChurchHomeName")
                         sb.Append(string.Format("|{0,-30}", itemArray[9].ToString()));
                     //else if (column.ToString() == "BirthDate")
-                        sb.Append(string.Format("|{0,-15}", itemArray[10].ToString()));
+                        sb.Append(string.Format("|{0,-15}", itemArray[10].ToString().Substring(0,10)));
                         sb.AppendLine("");
                     //string s = string.Format("{0,-15} | {1,-3} | {0,-15}", itemArray[1].ToString(), itemArray[2].ToString(), itemArray[3].ToString());
                     //sb.AppendLine(string.Format("{0,-15} | {0,-3} | {0,-15}", firstName, middleInit, lastName));
