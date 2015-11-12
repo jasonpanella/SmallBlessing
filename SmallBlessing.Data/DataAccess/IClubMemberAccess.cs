@@ -32,6 +32,10 @@ namespace SmallBlessing.Data.DataAccess
         /// <returns>Data table</returns>
         DataTable GetAllClubMembers();
 
+        DataTable GetClubMembertoExport(int days);
+
+        DataTable GetClubMemberItemsById(int PersonID);
+
         DataTable GetDependents(int PersonID);
         /// <summary>
         /// Method to search club members by multiple parameters

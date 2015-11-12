@@ -30,8 +30,9 @@ namespace SmallBlessing.Desktop.Forms.Membership
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.txtContactNumber = new System.Windows.Forms.MaskedTextBox();
@@ -67,7 +68,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.lblDateOfBirth = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
             this.tabSearchManage = new System.Windows.Forms.TabPage();
-            this.dataGridViewMembers = new System.Windows.Forms.DataGridView();
+            this.dataGridViewItems = new System.Windows.Forms.DataGridView();
             this.dependentsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.smallBlessingsDataSet = new SmallBlessing.Desktop.SmallBlessingsDataSet();
             this.PrintReport = new System.Drawing.Printing.PrintDocument();
@@ -76,16 +77,19 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.btnClose = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDependents)).BeginInit();
             this.tabSearchManage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMembers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dependentsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.smallBlessingsDataSet)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
+            this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab
@@ -96,10 +100,10 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.tab.Controls.Add(this.tabPage1);
             this.tab.Controls.Add(this.tabSearchManage);
             this.tab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tab.Location = new System.Drawing.Point(12, 55);
+            this.tab.Location = new System.Drawing.Point(12, 12);
             this.tab.Name = "tab";
             this.tab.SelectedIndex = 0;
-            this.tab.Size = new System.Drawing.Size(735, 648);
+            this.tab.Size = new System.Drawing.Size(735, 652);
             this.tab.TabIndex = 0;
             this.tab.SelectedIndexChanged += new System.EventHandler(this.Tab_SelectedIndexChanged);
             // 
@@ -137,7 +141,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(727, 620);
+            this.tabPage1.Size = new System.Drawing.Size(727, 624);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Member Info";
             // 
@@ -273,8 +277,8 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             this.dataGridViewDependents.AllowUserToResizeColumns = false;
             this.dataGridViewDependents.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
-            this.dataGridViewDependents.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Gainsboro;
+            this.dataGridViewDependents.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewDependents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewDependents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewDependents.Location = new System.Drawing.Point(24, 260);
@@ -284,6 +288,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.dataGridViewDependents.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDependents_CellClick);
             this.dataGridViewDependents.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDependents_CellContentClick);
             this.dataGridViewDependents.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewDependents_CellMouseUp);
+            this.dataGridViewDependents.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewDependents_RowPostPaint);
             // 
             // txtOpinion
             // 
@@ -458,7 +463,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // tabSearchManage
             // 
             this.tabSearchManage.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.tabSearchManage.Controls.Add(this.dataGridViewMembers);
+            this.tabSearchManage.Controls.Add(this.dataGridViewItems);
             this.tabSearchManage.Location = new System.Drawing.Point(4, 24);
             this.tabSearchManage.Name = "tabSearchManage";
             this.tabSearchManage.Padding = new System.Windows.Forms.Padding(3);
@@ -466,27 +471,33 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.tabSearchManage.TabIndex = 1;
             this.tabSearchManage.Text = "Items";
             // 
-            // dataGridViewMembers
+            // dataGridViewItems
             // 
-            this.dataGridViewMembers.AllowUserToOrderColumns = true;
-            this.dataGridViewMembers.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewMembers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewMembers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewMembers.Location = new System.Drawing.Point(18, 51);
-            this.dataGridViewMembers.Name = "dataGridViewMembers";
-            this.dataGridViewMembers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewMembers.Size = new System.Drawing.Size(691, 158);
-            this.dataGridViewMembers.TabIndex = 3;
-            this.dataGridViewMembers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMembers_CellContentClick_1);
-            this.dataGridViewMembers.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DataGridView_CellFormatting);
-            this.dataGridViewMembers.SelectionChanged += new System.EventHandler(this.dataGridViewMembers_SelectionChanged);
+            this.dataGridViewItems.AllowUserToResizeColumns = false;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Gainsboro;
+            this.dataGridViewItems.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridViewItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewItems.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridViewItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewItems.Location = new System.Drawing.Point(18, 51);
+            this.dataGridViewItems.MultiSelect = false;
+            this.dataGridViewItems.Name = "dataGridViewItems";
+            this.dataGridViewItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewItems.Size = new System.Drawing.Size(691, 158);
+            this.dataGridViewItems.TabIndex = 3;
+            this.dataGridViewItems.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewItems_CellClick);
+            this.dataGridViewItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewItems_CellContentClick);
+            this.dataGridViewItems.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DataGridViewItems_CellFormatting);
+            this.dataGridViewItems.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewItems_CellMouseUp);
+            this.dataGridViewItems.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewItems_RowPostPaint);
             // 
             // dependentsBindingSource
             // 
@@ -508,7 +519,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(12, 12);
+            this.btnUpdate.Location = new System.Drawing.Point(40, 676);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(84, 27);
             this.btnUpdate.TabIndex = 96;
@@ -518,7 +529,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(121, 12);
+            this.btnClose.Location = new System.Drawing.Point(149, 676);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(84, 27);
             this.btnClose.TabIndex = 97;
@@ -533,6 +544,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(134, 26);
             this.contextMenuStrip1.Text = "Context Menu";
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_Click);
             // 
             // toolStripMenuItem1
@@ -540,6 +552,22 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(133, 22);
             this.toolStripMenuItem1.Text = "Delete Row";
+            // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2});
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(134, 26);
+            this.contextMenuStrip2.Text = "Context Menu";
+            this.contextMenuStrip2.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip2_Opening);
+            this.contextMenuStrip2.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip2_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(133, 22);
+            this.toolStripMenuItem2.Text = "Delete Row";
             // 
             // Person
             // 
@@ -549,8 +577,8 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(759, 715);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.tab);
+            this.Controls.Add(this.btnUpdate);
             this.Name = "Person";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Small Blessing Information Sheet";
@@ -564,10 +592,11 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDependents)).EndInit();
             this.tabSearchManage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMembers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dependentsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.smallBlessingsDataSet)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -577,7 +606,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
         private System.Windows.Forms.TabControl tab;
         private System.Windows.Forms.TabPage tabSearchManage;
         //private System.Windows.Forms.DataGridView dataGridViewDependents;
-        private System.Windows.Forms.DataGridView dataGridViewMembers;
+        private System.Windows.Forms.DataGridView dataGridViewItems;
         private System.Drawing.Printing.PrintDocument PrintReport;
         private SmallBlessingsDataSet smallBlessingsDataSet;
         private System.Windows.Forms.BindingSource dependentsBindingSource;
@@ -619,5 +648,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
         private System.Windows.Forms.MaskedTextBox txtContactNumber;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
     }
 }

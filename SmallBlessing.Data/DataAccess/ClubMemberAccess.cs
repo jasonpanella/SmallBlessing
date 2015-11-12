@@ -52,6 +52,34 @@ namespace SmallBlessing.Data.DataAccess
             return dataTable;
         }
 
+
+        public DataTable GetClubMemberItemsById(int id)
+        {
+            DataTable dataTable = new DataTable();
+
+            //DataSet DS = new DataSet();
+            SqlDataAdapter xDA = new SqlDataAdapter();
+
+            using (SqlConnection cnn = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(Scripts.SqlGetPersonItems, cnn))
+                {
+
+                    // Assign the SQL to the command object
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@PersonID", id);
+                    // Fill the datatable from adapter
+
+                    xDA.SelectCommand = cmd;
+                    xDA.SelectCommand.Connection = cnn;
+                    xDA.Fill(dataTable);
+
+                }
+
+            }
+            return dataTable;
+        }
+
         /// <summary>
         /// Method to get club member by Id
         /// </summary>
@@ -157,6 +185,49 @@ namespace SmallBlessing.Data.DataAccess
             }
             return dataTable;           
         }
+
+        public DataTable GetClubMembertoExport(int days)
+        {
+            DataTable dataTable = new DataTable();
+
+            //DataSet DS = new DataSet();
+            SqlDataAdapter xDA = new SqlDataAdapter();
+
+            using (SqlConnection cnn = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(Scripts.SqlGetAllClubMembersToExport, cnn))
+                {
+
+                    // Assign the SQL to the command object
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@DaysToExport", days);
+                    //cmd.Parameters.AddWithValue("@DependentID", DependentID);
+                    // Fill the datatable from adapter
+
+                    xDA.SelectCommand = cmd;
+                    xDA.SelectCommand.Connection = cnn;
+                    xDA.Fill(dataTable);
+                }
+
+                using (SqlCommand cmd = new SqlCommand(Scripts.SqlUpdateClubMembersExportFlag, cnn))
+                {
+                    cnn.Open();
+                    // Assign the SQL to the command object
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@DaysToExport", days);
+                    //cmd.Parameters.AddWithValue("@DependentID", DependentID);
+                    // Fill the datatable from adapter
+
+                    cmd.ExecuteNonQuery();
+                    cnn.Close();
+                }
+
+
+            }
+            return dataTable; 
+
+        }
+
 
         /// <summary>
         /// Method to search club members by multiple parameters
@@ -344,6 +415,7 @@ namespace SmallBlessing.Data.DataAccess
                             cmd.Parameters.AddWithValue("@State", person.State);
                             cmd.Parameters.AddWithValue("@Zip", person.Zip);
                             cmd.Parameters.AddWithValue("@ID", person.PersonID);
+                            cmd.Parameters.AddWithValue("@DateUpdated", person.DateUpdated);
                             // Open the connection, execute the query and close the connection
                             //cmd.Connection.Open();
                             rowsAffected = cmd.ExecuteNonQuery();
@@ -383,26 +455,39 @@ namespace SmallBlessing.Data.DataAccess
                             }
                         }
 
-                        //using (SqlCommand cmd = new SqlCommand())
-                        //{
-                        //    // Set the command object properties
-                        //    cmd.Connection = conn;
-                        //    cmd.CommandText = Scripts.sqlUpdateClubMemberDependent;
+                        using (SqlCommand cmd = new SqlCommand())
+                        {
+                            // Set the command object properties
+                            cmd.Connection = conn;
+                            cmd.CommandText = Scripts.SqlDeleteItems;
+
+                            // Add the input parameters to the parameter collection
+                            cmd.Parameters.AddWithValue("@PersonID", person.PersonID);
+                            // Open the connection, execute the query and close the connection
+                            rowsAffected = cmd.ExecuteNonQuery();
+                        }
+
+                        foreach (ItemModel dm in person.ItemModelList)
+                        {
+                            using (SqlCommand cmd = new SqlCommand())
+                            {
+                                cmd.Connection = conn;
+                                cmd.CommandText = Scripts.SqlInsertItems;
+
+                                // Add the input parameters to the parameter collection
+                                cmd.Parameters.AddWithValue("@Comments", dm.Comments);
+                                cmd.Parameters.AddWithValue("@Date", dm.Date);
+                                cmd.Parameters.AddWithValue("@Description", dm.Description);
+                                cmd.Parameters.AddWithValue("@PersonID", memberID);
+                                cmd.Parameters.AddWithValue("@Initials", dm.Initials);
+                                //cmd.Parameters.AddWithValue("@DependentID", dm.DependentID);
+
+                                rowsAffected = cmd.ExecuteNonQuery();
+                            }
+                        }
 
 
-                        //    foreach (DependentModel dm in person.DependentModelList)
-                        //    {
-                        //        // Add the input parameters to the parameter collection
-                        //        cmd.Parameters.AddWithValue("@Name", dm.NameOfChild);
-                        //        cmd.Parameters.AddWithValue("@Relationship", dm.Relationship);
-                        //        cmd.Parameters.AddWithValue("@LivesWith", dm.ChildLivesWith);
-                        //        cmd.Parameters.AddWithValue("@PersonID", dm.PersonID);
-                        //        cmd.Parameters.AddWithValue("@BirthDate", dm.BirthDate);
-
-                        //        rowsAffected = cmd.ExecuteNonQuery();
-                        //    }
-
-                        //}
+                        rowsAffected = 1;
                         ts.Complete();
                     }
                 }

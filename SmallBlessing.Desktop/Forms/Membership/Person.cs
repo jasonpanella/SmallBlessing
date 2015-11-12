@@ -136,6 +136,41 @@ namespace SmallBlessing.Desktop.Forms.Membership
             //btnDelete.Text = Resources.Delete_Button_Text;
         }
 
+        private void dataGridViewItems_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // If any cell is clicked on the Second column which is our date Column  
+            if (e.ColumnIndex == 4)
+            {
+                //Initialized a new DateTimePicker Control  
+                _datePicker = new DateTimePicker();
+
+                //Adding DateTimePicker control into DataGridView   
+                dataGridViewItems.Controls.Add(_datePicker);
+
+                // Setting the format (i.e. 2014-10-10)  
+                _datePicker.Format = DateTimePickerFormat.Short;
+
+                // It returns the retangular area that represents the Display area for a cell  
+                Rectangle oRectangle = dataGridViewItems.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+
+                //Setting area for DateTimePicker Control  
+                _datePicker.Size = new Size(oRectangle.Width, oRectangle.Height);
+
+                // Setting Location  
+                _datePicker.Location = new Point(oRectangle.X, oRectangle.Y);
+
+                // An event attached to dateTimePicker Control which is fired when DateTimeControl is closed  
+                _datePicker.CloseUp += new EventHandler(_datePicker_CloseUp);
+
+                // An event attached to dateTimePicker Control which is fired when any date is selected  
+                _datePicker.TextChanged += new EventHandler(dateTimePickerItems_OnTextChange);
+
+                // Now make it visible  
+                _datePicker.Visible = true;
+            }
+        }
+
+
         private void dataGridViewDependents_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // If any cell is clicked on the Second column which is our date Column  
@@ -174,6 +209,12 @@ namespace SmallBlessing.Desktop.Forms.Membership
         {
             _dataGrid.CurrentCell.Value = _datePicker.Value.ToString("dd/MM/yyyy");
             _datePicker.Visible = false;
+        }
+
+        private void dateTimePickerItems_OnTextChange(object sender, EventArgs e)
+        {
+            // Saving the 'Selected Date on Calendar' into DataGridView current cell  
+            dataGridViewItems.CurrentCell.Value = _datePicker.Text.ToString();
         }
 
         private void dateTimePicker_OnTextChange(object sender, EventArgs e)
@@ -328,17 +369,32 @@ namespace SmallBlessing.Desktop.Forms.Membership
         private void InitilizeDataGridViewStyle()
         {
             // Setting the style of the DataGridView control
-            dataGridViewMembers.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewMembers.ColumnHeadersDefaultCellStyle.BackColor = SystemColors.ControlDark;
-            dataGridViewMembers.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewMembers.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewMembers.DefaultCellStyle.Font = new Font("Tahoma", 8, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewMembers.DefaultCellStyle.BackColor = Color.Empty;
-            dataGridViewMembers.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.Info;
-            dataGridViewMembers.CellBorderStyle = DataGridViewCellBorderStyle.Single;
-            dataGridViewMembers.GridColor = SystemColors.ControlDarkDark;
+            dataGridViewItems.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewItems.ColumnHeadersDefaultCellStyle.BackColor = SystemColors.ControlDark;
+            dataGridViewItems.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewItems.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewItems.DefaultCellStyle.Font = new Font("Tahoma", 8, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewItems.DefaultCellStyle.BackColor = Color.Empty;
+            dataGridViewItems.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.Info;
+            dataGridViewItems.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+            dataGridViewItems.GridColor = SystemColors.ControlDarkDark;
             
         }
+
+        private void LoadDataGridItemView(DataTable data)
+        {
+            // Data grid view column setting            
+            //dataGridViewMembers.DataSource = data;
+            //dataGridViewMembers.DataMember = data.TableName;
+            //dataGridViewMembers.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+
+            dataGridViewItems.DataSource = data;
+            dataGridViewItems.DataMember = data.TableName;
+            dataGridViewItems.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+
+            this.dataGridViewItems.Columns["ItemId"].Visible = false;
+        }
+
 
         /// <summary>
         /// Method to load data grid view
@@ -386,7 +442,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.PrintReport.PrinterSettings = printDialog.PrinterSettings;
             this.PrintReport.DefaultPageSettings = printDialog.PrinterSettings.DefaultPageSettings;
             this.PrintReport.DefaultPageSettings.Margins = new Margins(40, 40, 40, 40);
-            this.dataGridViewPrinter = new DataGridViewPrinter(dataGridViewMembers, PrintReport, true, true, Resources.Report_Header, new Font("Tahoma", 13, FontStyle.Bold, GraphicsUnit.Point), Color.Black, true);
+            this.dataGridViewPrinter = new DataGridViewPrinter(dataGridViewItems, PrintReport, true, true, Resources.Report_Header, new Font("Tahoma", 13, FontStyle.Bold, GraphicsUnit.Point), Color.Black, true);
             return true;
         }
 
@@ -435,9 +491,10 @@ namespace SmallBlessing.Desktop.Forms.Membership
             {
                 if (tab.SelectedIndex == 1)
                 {
-                    DataTable data = this.clubMemberService.GetAllClubMembers();
+                    DataTable data = this.clubMemberService.GetClubMemberItemsById(this.memberId);
                     this.InitializeUpdate();
-                    this.LoadDataGridView(data);                    
+                    this.LoadDataGridItemView(data);
+                                    
                 }
             }
             catch (Exception ex)
@@ -489,10 +546,48 @@ namespace SmallBlessing.Desktop.Forms.Membership
             {
                 this.ShowErrorMessage(ex);
             }            
+        }
+
+
+        private void DataGridViewItems_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            try
+            {
+                //if (e.ColumnIndex == 2)
+                //{
+                //    e.Value = string.Format("{0:dd/MM/yyyy}", (DateTime)e.Value);
+                //}
+
+                //if (e.ColumnIndex == 3)
+                //{
+                //    e.Value = Enum.GetName(typeof(Occupation), e.Value).ToString();
+                //}
+
+                //if (e.ColumnIndex == 4)
+                //{
+                //    e.Value = Enum.GetName(typeof(MaritalStatus), e.Value).ToString();
+                //}
+
+                //if (e.ColumnIndex == 5)
+                //{
+                //    e.Value = Enum.GetName(typeof(HealthStatus), e.Value).ToString();
+                //}
+
+                //if (e.ColumnIndex == 6)
+                //{
+                //    e.Value = Convert.ToDecimal(e.Value) == 0 ? string.Empty : e.Value;
+                //}
+
+                //if (e.ColumnIndex == 7)
+                //{
+                //    e.Value = Convert.ToInt16(e.Value) == 0 ? string.Empty : e.Value;
+                //}
+            }
+            catch (Exception ex)
+            {
+                this.ShowErrorMessage(ex);
+            }
         }     
-
-        
-
         /// <summary>
         /// Click event to handle the refresh
         /// </summary>
@@ -585,7 +680,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
         {
             try
             {
-                var table = (DataTable)dataGridViewMembers.DataSource;
+                var table = (DataTable)dataGridViewItems.DataSource;
 
                 Microsoft.Office.Interop.Excel.ApplicationClass excel
                     = new Microsoft.Office.Interop.Excel.ApplicationClass();
@@ -648,11 +743,11 @@ namespace SmallBlessing.Desktop.Forms.Membership
 
         private void dataGridViewMembers_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int currentRow = dataGridViewMembers.SelectedCells[0].RowIndex;
-            MessageBox.Show("cell content click");
+            int currentRow = dataGridViewItems.SelectedCells[0].RowIndex;
+            //MessageBox.Show("cell content click");
             try
             {
-                string clubMemberId = dataGridViewMembers[0, currentRow].Value.ToString();
+                string clubMemberId = dataGridViewItems[0, currentRow].Value.ToString();
                 memberId = int.Parse(clubMemberId);
             }
             catch (Exception ex)
@@ -692,16 +787,32 @@ namespace SmallBlessing.Desktop.Forms.Membership
                             BirthDate = Convert.ToDateTime(_datePicker.Value.ToShortDateString()),
                             ChildLivesWith = row.Cells["LivesWith"].Value.ToString(),
                             Relationship = row.Cells["Relationship"].Value.ToString(),
-                            PersonID = this.memberId,
-                            DependentID = Convert.ToInt32(row.Cells["DependentID"].Value.ToString())
+                            PersonID = this.memberId//,
+                            //DependentID = Convert.ToInt32(row.Cells["DependentID"].Value.ToString())
                         };
-
-                        //this.clubMemberService.RegisterDependent(dependentModel);
-
                         depList.Add(dependentModel);
                     }
 
+                    List<ItemModel> itemList = new List<ItemModel>();
+                    //loop through all dependents datagrid view
+                    foreach (DataGridViewRow row in dataGridViewItems.Rows)
+                    {
+                        if (row.IsNewRow) continue;
+                        ItemModel itemModel = new ItemModel()
+                        {
+                            Description = row.Cells["Description"].Value.ToString(),
+                            Date = Convert.ToDateTime(_datePicker.Value.ToShortDateString()),
+                            Comments = row.Cells["Comments"].Value.ToString(),
+                            Initials = row.Cells["Initials"].Value.ToString(),
+                            PersonID = this.memberId
+                            //ItemID = Convert.ToInt32(row.Cells["ItemID"].Value.ToString())
+                        };
+                        itemList.Add(itemModel);
+                    }
 
+                    string phone = string.Empty;
+                    if (!(txtContactNumber.Text == "(   )    -"))
+                        phone = txtContactNumber.Text;
 
                     PersonModel clubMemberModel = new PersonModel()
                     {
@@ -710,7 +821,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
                         LastName = txtLastName.Text.Trim(),
                         MiddleIntial = txtMiddleInitial.Text.Trim(),
                         Address = txtAddress.Text.Trim(),
-                        PhoneNumber = txtContactNumber.Text.Trim(),
+                        PhoneNumber = phone.Trim(),
                         DateOfBirth = dtDateOfBirth.Value,
                         ChurchHome = bool.Parse(rdoChurchHome1.Checked.ToString()),
                         ChurchName = txtChurchName.Text.Trim(),
@@ -719,7 +830,9 @@ namespace SmallBlessing.Desktop.Forms.Membership
                         City = txtCity.Text.Trim(),
                         State = txtState.Text.Trim(),
                         Zip = txtZip.Text.Trim(),
-                        DependentModelList = depList
+                        DateUpdated = DateTime.Now,
+                        DependentModelList = depList,
+                        ItemModelList = itemList
 
                     };
 
@@ -732,6 +845,8 @@ namespace SmallBlessing.Desktop.Forms.Membership
                             Resources.Update_Successful_Message_Title,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
+
+                        _manage.PerformRefresh();
                     }
                 }
                 else
@@ -802,6 +917,35 @@ namespace SmallBlessing.Desktop.Forms.Membership
             }            
         }
 
+        private void dataGridViewItems_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+
+            try
+            {
+                //if (dgv.SelectedRows.Count > 0)
+                //{
+                //    string clubMemberId = dgv.SelectedRows[0].Cells[0].Value.ToString();
+                //    memberId = int.Parse(clubMemberId);
+
+                //    DataRow dataRow = this.clubMemberService.GetClubMemberById(memberId);
+
+                //    //txt2Name.Text = dataRow["Name"].ToString();
+                //    //dt2DateOfBirth.Value = Convert.ToDateTime(dataRow["DateOfBirth"]);
+                //    //cmb2Occupation.SelectedItem = (Occupation)dataRow["Occupation"];
+                //    //cmb2MaritalStatus.SelectedItem = (MaritalStatus)dataRow["MaritalStatus"];
+                //    //cmb2HealthStatus.SelectedItem = (HealthStatus)dataRow["HealthStatus"];
+                //    //txt2Salary.Text = dataRow["Salary"].ToString() == "0.0000" ? string.Empty : dataRow["Salary"].ToString();
+                //    //txt2NoOfChildren.Text = dataRow["NumberOfChildren"].ToString();
+                //}
+            }
+            catch (Exception ex)
+            {
+                this.ShowErrorMessage(ex);
+            }
+        }
+
+
         private void label6_Click(object sender, EventArgs e)
         {
 
@@ -835,6 +979,11 @@ namespace SmallBlessing.Desktop.Forms.Membership
         }
 
         private void dataGridViewMembers_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridViewItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
@@ -910,6 +1059,35 @@ namespace SmallBlessing.Desktop.Forms.Membership
             }
         }
 
+        private void dataGridViewItems_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dataGridViewItems.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 20, e.RowBounds.Location.Y + 4);
+            }
+        }
+
+        private void dataGridViewDependents_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dataGridViewDependents.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 20, e.RowBounds.Location.Y + 4);
+            }
+        }
+
+        private void dataGridViewItems_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                this.dataGridViewItems.Rows[e.RowIndex].Selected = true;
+                this.rowIndex = e.RowIndex;
+                this.dataGridViewItems.CurrentCell = this.dataGridViewItems.Rows[e.RowIndex].Cells[1];
+                this.contextMenuStrip2.Show(this.dataGridViewItems, e.Location);
+                contextMenuStrip2.Show(Cursor.Position);
+            }
+        }
+
+
         private void contextMenuStrip1_Click(object sender, EventArgs e)
         {
             if (!this.dataGridViewDependents.Rows[this.rowIndex].IsNewRow)
@@ -917,6 +1095,25 @@ namespace SmallBlessing.Desktop.Forms.Membership
                 this.dataGridViewDependents.Rows.RemoveAt(this.rowIndex);
             }
         }
+
+        private void contextMenuStrip2_Click(object sender, EventArgs e)
+        {
+            if (!this.dataGridViewItems.Rows[this.rowIndex].IsNewRow)
+            {
+                this.dataGridViewItems.Rows.RemoveAt(this.rowIndex);
+            }
+        }
+
+        private void contextMenuStrip2_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
 
         //private void btnUpdate_Click(object sender, EventArgs e)
         //{

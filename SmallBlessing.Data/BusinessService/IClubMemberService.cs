@@ -32,6 +32,9 @@ namespace SmallBlessing.Data.BusinessService
         /// <returns>Data table</returns>
         DataTable GetAllClubMembers();
 
+        DataTable GetClubMemberItemsById(int Id);
+
+
         DataTable GetDependents(int PersonID);
 
         /// <summary>
@@ -43,6 +46,8 @@ namespace SmallBlessing.Data.BusinessService
         /// <returns>Data table</returns>
         //DataTable SearchClubMembers(object occupation, object maritalStatus, string operand);
         DataTable SearchClubMembers(string firstName, string lastName, string operand);
+
+        DataTable GetClubMembertoExport(int days);
 
         /// <summary>
         /// Service method to create new member

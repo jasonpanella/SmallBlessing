@@ -89,6 +89,10 @@ namespace SmallBlessing.Data.DataModel
         /// </summary>
         public DateTime DateUpdated { get; set; }
 
+        public int ExportFlag { get; set; }
+
         public List<DependentModel> DependentModelList { get; set; }
+
+        public List<ItemModel> ItemModelList { get; set; }
     }
 }

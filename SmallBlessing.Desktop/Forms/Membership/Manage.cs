@@ -8,6 +8,7 @@ using System.Text;
 using System.Linq;
 using System.Globalization;
 using System;
+using System.Configuration;
 //using System.Windows.Forms;
 namespace SmallBlessing.Desktop.Forms.Membership
 {
@@ -120,7 +121,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             btnRefresh.Text = Resources.Search_Refresh_Button_Text;
             //btnPrintPreview.Text = Resources.Print_PrintPreview_Button_Text;
             //btnPrint.Text = Resources.Print_Print_Button_Text;
-            btnExport.Text = Resources.Export_Button_Text;
+            //btnExport.Text = Resources.Export_Button_Text;
             btnUpdate.Text = Resources.Update_Button_Text;
 
         }
@@ -362,6 +363,9 @@ namespace SmallBlessing.Desktop.Forms.Membership
                         depList.Add(dependentModel);
                     }
 
+                    string phone = string.Empty;
+                    if (!(txtContactNumber.Text == "(   )    -"))                  
+                        phone = txtContactNumber.Text;
 
                     // Assign the values to the model
                     PersonModel clubMemberModel = new PersonModel()
@@ -371,7 +375,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
                         LastName = txtLastName.Text.Trim(),
                         MiddleIntial = txtMiddleInitial.Text.Trim(),
                         Address = txtAddress.Text.Trim(),
-                        PhoneNumber = txtContactNumber.Text.Trim(),
+                        PhoneNumber = phone.Trim(),
                         DateOfBirth = dtDateOfBirth.Value,
                         ChurchHome = bool.Parse(rdoChurchHome1.Checked.ToString()),
                         ChurchName = txtAttend.Text.Trim(),
@@ -380,6 +384,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
                         City = txtCity.Text.Trim(),
                         State = txtState.Text.Trim(),
                         Zip = txtZip.Text.Trim(),
+                        ExportFlag = 0,
                         DependentModelList = depList
                     };
 
@@ -1001,107 +1006,100 @@ namespace SmallBlessing.Desktop.Forms.Membership
             StringBuilder sb = new StringBuilder();
             try
             {
-                //var table = (DataTable)dataGridViewMembers.DataSource;
-                DataTable table = this.clubMemberService.GetAllClubMembers();
+                int DaysToExport = Convert.ToInt32(ConfigurationManager.AppSettings["DaysToExport"].ToString()); 
+                DataTable table = this.clubMemberService.GetClubMembertoExport(DaysToExport);
 
-                //List<string> str = new List<string>();
-
-                //foreach(var column in table.Columns)
-                //{
-                //    str.Add(column.ToString());
-                //    //string.Format("{0,-15} | {0,-3} | {0,-15}", columns[1].ToString(), columns[2].ToString(), columns[3].ToString())
-                //}
-
-                //sb.AppendLine(string.Join("", string.Format("{0,-15} | {0,-3} | {0,-15}", str[1].ToString(), str[2].ToString(), str[3].ToString())));
-
-                var columns = table.Columns
-                   .Cast<DataColumn>()
-                   .Select(x => x.ColumnName)
-                   .ToList();
-
-                foreach (DataColumn column in table.Columns)
+                int lineCounter = 100;
+                for (int i=0; i<lineCounter; i++)
                 {
-                    if (column.ToString() == "FirstName")                    
-                        sb.Append(string.Format("{0,-18}",column.ToString()));
-                        //sb.Append(string.Format("{0,-15}",column.ToString()));
-                    else if (column.ToString() == "MI")
-                        sb.Append(string.Format("{0,-6}", column.ToString()));
-                    else if (column.ToString() == "LastName")
-                        sb.Append(string.Format("{0,-31}", column.ToString()));
-                    else if (column.ToString() == "Address")
-                        sb.Append(string.Format("{0,-52}", column.ToString()));
-                    else if (column.ToString() == "City")
-                        sb.Append(string.Format("{0,-36}", column.ToString()));
-                    else if (column.ToString() == "State")
-                        sb.Append(string.Format("{0,-16}", column.ToString()));
-                    else if (column.ToString() == "Zip")
-                        sb.Append(string.Format("{0,-7}", column.ToString()));
-                    else if (column.ToString() == "Phone")
-                        sb.Append(string.Format("{0,-16}", column.ToString()));
-                    else if (column.ToString() == "ChurchHomeName")
-                        sb.Append(string.Format("{0,-31}", column.ToString()));
-                    else if (column.ToString() == "BirthDate")
-                        sb.Append(string.Format("{0,-15}", column.ToString()));
-
+                    sb.Append("-");
                 }
+                sb.AppendLine();
+                sb.AppendLine("SmallBlessings Information Sheet");
+                sb.AppendLine("Weekending: " + DateTime.Now.ToShortDateString());
                 
-                //string s = string.Format("{0,-15} | {1,-3} | {0,-15}", columns[1].ToString(), columns[2].ToString(), columns[3].ToString());
-                //sb.AppendLine(string.Format("{0,-15} | {0,-3} | {0,-15}", columns.ElementAt(1).ToString(), columns.ElementAt(2).ToString(), columns.ElementAt(3).ToString()));
-
-                sb.AppendLine("");
-
-                var rows = table.Rows.Cast<DataRow>().Select(x => x.ItemArray).AsEnumerable().ToList();
-
-                //foreach (DataRow dataRow in table.Rows)
-                  //  sb.AppendLine(string.Format("{0,-15} | {0,-3} | {0,-15}", dataRow.ItemArray[1].ToString(), dataRow.ItemArray[2].ToString(), dataRow.ItemArray[3].ToString()));
-                //File.WriteAllText(name, sb.ToString());
-                                                                                
-                foreach (DataRow row in table.Rows)
+                lineCounter = 100;
+                for (int i=0; i<lineCounter; i++)
                 {
-                    IEnumerable<string> fields = row.ItemArray.Select(field => field.ToString());
-
-                    object[] itemArray = row.ItemArray;
-                    string firstName = itemArray[1].ToString();
-                    string middleInit = itemArray[2].ToString();
-                    string lastName = itemArray[3].ToString();
-
-                    //if (itemArray[1].ToString() == "FirstName")
-                        sb.Append(string.Format("{0,-17}", itemArray[1].ToString()));
-                    //else if (column.ToString() == "MI")
-                        sb.Append(string.Format("|{0,-5}", itemArray[2].ToString()));
-                    //else if (column.ToString() == "LastName")
-                        sb.Append(string.Format("|{0,-30}", itemArray[3].ToString()));
-                    //else if (column.ToString() == "Address")
-                        sb.Append(string.Format("|{0,-51}", itemArray[4].ToString()));
-                    //else if (column.ToString() == "City")
-                        sb.Append(string.Format("|{0,-35}", itemArray[5].ToString()));
-                    //else if (column.ToString() == "State")
-                        sb.Append(string.Format("|{0,-15}", itemArray[6].ToString()));
-                    //else if (column.ToString() == "Zip")
-                        sb.Append(string.Format("|{0,-6}", itemArray[7].ToString()));
-                    //else if (column.ToString() == "Phone")
-                        sb.Append(string.Format("|{0,-15}", itemArray[8].ToString()));
-                    //else if (column.ToString() == "ChurchHomeName")
-                        sb.Append(string.Format("|{0,-30}", itemArray[9].ToString()));
-                    //else if (column.ToString() == "BirthDate")
-                        sb.Append(string.Format("|{0,-15}", itemArray[10].ToString().Substring(0,10)));
-                        sb.AppendLine("");
-                    //string s = string.Format("{0,-15} | {1,-3} | {0,-15}", itemArray[1].ToString(), itemArray[2].ToString(), itemArray[3].ToString());
-                    //sb.AppendLine(string.Format("{0,-15} | {0,-3} | {0,-15}", firstName, middleInit, lastName));
-
-                    //sb.AppendLine(string.Join("\t\t", row.ItemArray.Select(arg => arg.ToString())));
-                    //sb.AppendLine(string.Format("|{0,5}|{1,5}|{2,5}", string.Join(",",fields)));
-                    //sb.AppendLine(string.Join(",", fields));
-                    //sb.AppendLine(string.Format("{0,20}", fields));
+                    sb.Append("-");
                 }
-                //foreach (DataRow row in table.Rows)
-                //{
-                //    IEnumerable<string> fields = row.ItemArray.Select(field => string.Format("{0,50}", field.ToString()));
-                //    sb.AppendLine(string.Join("||", fields));
-                //    //sb.AppendLine(string.Join(",", fields));
-                //    //sb.AppendLine(string.Format("{0,20}", fields));
-                //}
 
+                sb.AppendLine();
+
+                if (!(table.Rows.Count == 0))
+                {
+                    var columns = table.Columns
+                       .Cast<DataColumn>()
+                       .Select(x => x.ColumnName)
+                       .ToList();
+
+                    foreach (DataColumn column in table.Columns)
+                    {
+                        if (column.ToString() == "FirstName")
+                            sb.Append(string.Format("{0,-18}", column.ToString()));
+                        else if (column.ToString() == "MI")
+                            sb.Append(string.Format("{0,-6}", column.ToString()));
+                        else if (column.ToString() == "LastName")
+                            sb.Append(string.Format("{0,-31}", column.ToString()));
+                        else if (column.ToString() == "Address")
+                            sb.Append(string.Format("{0,-52}", column.ToString()));
+                        else if (column.ToString() == "City")
+                            sb.Append(string.Format("{0,-36}", column.ToString()));
+                        else if (column.ToString() == "State")
+                            sb.Append(string.Format("{0,-16}", column.ToString()));
+                        else if (column.ToString() == "Zip")
+                            sb.Append(string.Format("{0,-7}", column.ToString()));
+                        else if (column.ToString() == "Phone")
+                            sb.Append(string.Format("{0,-16}", column.ToString()));
+                        else if (column.ToString() == "ChurchHomeName")
+                            sb.Append(string.Format("{0,-31}", column.ToString()));
+                        else if (column.ToString() == "BirthDate")
+                            sb.Append(string.Format("{0,-15}", column.ToString()));
+
+                    }
+
+                    sb.AppendLine("");
+
+                    var rows = table.Rows.Cast<DataRow>().Select(x => x.ItemArray).AsEnumerable().ToList();
+
+                    foreach (DataRow row in table.Rows)
+                    {
+                        IEnumerable<string> fields = row.ItemArray.Select(field => field.ToString());
+
+                        object[] itemArray = row.ItemArray;
+                        string firstName = itemArray[1].ToString();
+                        string middleInit = itemArray[2].ToString();
+                        string lastName = itemArray[3].ToString();
+
+                        //if (itemArray[1].ToString() == "FirstName")
+                        sb.Append(string.Format("{0,-17}", itemArray[1].ToString()));
+                        //else if (column.ToString() == "MI")
+                        sb.Append(string.Format("|{0,-5}", itemArray[2].ToString()));
+                        //else if (column.ToString() == "LastName")
+                        sb.Append(string.Format("|{0,-30}", itemArray[3].ToString()));
+                        //else if (column.ToString() == "Address")
+                        sb.Append(string.Format("|{0,-51}", itemArray[4].ToString()));
+                        //else if (column.ToString() == "City")
+                        sb.Append(string.Format("|{0,-35}", itemArray[5].ToString()));
+                        //else if (column.ToString() == "State")
+                        sb.Append(string.Format("|{0,-15}", itemArray[6].ToString()));
+                        //else if (column.ToString() == "Zip")
+                        sb.Append(string.Format("|{0,-6}", itemArray[7].ToString()));
+                        //else if (column.ToString() == "Phone")
+                        sb.Append(string.Format("|{0,-15}", itemArray[8].ToString()));
+                        //else if (column.ToString() == "ChurchHomeName")
+                        sb.Append(string.Format("|{0,-30}", itemArray[9].ToString()));
+                        //else if (column.ToString() == "BirthDate")
+                        sb.Append(string.Format("|{0,-15}", itemArray[10].ToString().Substring(0, 10)));
+                        sb.AppendLine("");
+                    }
+
+                }
+                else
+                {
+                    sb.AppendLine();
+                    sb.AppendLine("No Data for this week");
+                }
                 // ... You can write the text from a TextBox instead of a string literal.
                 File.WriteAllText(name, sb.ToString());
                 //File.WriteAllText(name, text);

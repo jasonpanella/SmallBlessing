@@ -47,6 +47,7 @@
     <Compile Include="DataAccess\ConnectionAccess.cs" />
     <Compile Include="DataAccess\ClubMemberAccess.cs" />
     <Compile Include="DataAccess\IClubMemberAccess.cs" />
+    <Compile Include="DataModel\ItemModel.cs" />
     <Compile Include="DataModel\DependentModel.cs" />
     <Compile Include="DataModel\PersonModel.cs" />
     <Compile Include="Sql\Scripts.cs" />

@@ -32,9 +32,9 @@ namespace SmallBlessing.Desktop.Forms.Membership
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tab = new System.Windows.Forms.TabControl();
             this.tabRegistration = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
@@ -80,7 +80,6 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.lblName = new System.Windows.Forms.Label();
             this.tabSearchManage = new System.Windows.Forms.TabPage();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnExport = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.cmbOperand = new System.Windows.Forms.ComboBox();
@@ -206,7 +205,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             this.groupBox2.Controls.Add(this.rdoChurchHome2);
             this.groupBox2.Controls.Add(this.rdoChurchHome1);
-            this.groupBox2.Location = new System.Drawing.Point(16, 432);
+            this.groupBox2.Location = new System.Drawing.Point(16, 401);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(208, 51);
             this.groupBox2.TabIndex = 113;
@@ -239,7 +238,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             this.groupBox1.Controls.Add(this.radioButton1);
             this.groupBox1.Controls.Add(this.rdoLeaveMessage1);
-            this.groupBox1.Location = new System.Drawing.Point(142, 250);
+            this.groupBox1.Location = new System.Drawing.Point(142, 219);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(288, 53);
             this.groupBox1.TabIndex = 112;
@@ -271,7 +270,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(263, 193);
+            this.label4.Location = new System.Drawing.Point(263, 162);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(24, 15);
             this.label4.TabIndex = 49;
@@ -280,7 +279,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // txtZip
             // 
             this.txtZip.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtZip.Location = new System.Drawing.Point(266, 211);
+            this.txtZip.Location = new System.Drawing.Point(266, 180);
             this.txtZip.MaxLength = 75;
             this.txtZip.Name = "txtZip";
             this.txtZip.Size = new System.Drawing.Size(72, 21);
@@ -289,7 +288,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(203, 192);
+            this.label2.Location = new System.Drawing.Point(203, 161);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 15);
             this.label2.TabIndex = 47;
@@ -298,7 +297,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // txtState
             // 
             this.txtState.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtState.Location = new System.Drawing.Point(206, 211);
+            this.txtState.Location = new System.Drawing.Point(206, 180);
             this.txtState.MaxLength = 75;
             this.txtState.Name = "txtState";
             this.txtState.Size = new System.Drawing.Size(40, 21);
@@ -307,7 +306,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 192);
+            this.label1.Location = new System.Drawing.Point(10, 161);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(26, 15);
             this.label1.TabIndex = 45;
@@ -317,7 +316,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // txtCity
             // 
             this.txtCity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCity.Location = new System.Drawing.Point(13, 211);
+            this.txtCity.Location = new System.Drawing.Point(13, 180);
             this.txtCity.MaxLength = 75;
             this.txtCity.Name = "txtCity";
             this.txtCity.Size = new System.Drawing.Size(171, 21);
@@ -325,7 +324,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             // txtContactNumber
             // 
-            this.txtContactNumber.Location = new System.Drawing.Point(12, 270);
+            this.txtContactNumber.Location = new System.Drawing.Point(12, 239);
             this.txtContactNumber.Mask = "(999) 000-0000";
             this.txtContactNumber.Name = "txtContactNumber";
             this.txtContactNumber.Size = new System.Drawing.Size(100, 21);
@@ -335,8 +334,8 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             this.dataGridViewDependents.AllowUserToResizeColumns = false;
             this.dataGridViewDependents.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
-            this.dataGridViewDependents.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Gainsboro;
+            this.dataGridViewDependents.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridViewDependents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewDependents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewDependents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -344,7 +343,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.Birthdate,
             this.Relationship,
             this.LivesWith});
-            this.dataGridViewDependents.Location = new System.Drawing.Point(13, 309);
+            this.dataGridViewDependents.Location = new System.Drawing.Point(13, 278);
             this.dataGridViewDependents.Name = "dataGridViewDependents";
             this.dataGridViewDependents.Size = new System.Drawing.Size(626, 95);
             this.dataGridViewDependents.TabIndex = 13;
@@ -375,7 +374,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(185, 88);
+            this.label16.Location = new System.Drawing.Point(185, 57);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(21, 15);
             this.label16.TabIndex = 41;
@@ -384,7 +383,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // txtMiddleInitial
             // 
             this.txtMiddleInitial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMiddleInitial.Location = new System.Drawing.Point(188, 107);
+            this.txtMiddleInitial.Location = new System.Drawing.Point(188, 76);
             this.txtMiddleInitial.MaxLength = 1;
             this.txtMiddleInitial.Name = "txtMiddleInitial";
             this.txtMiddleInitial.Size = new System.Drawing.Size(36, 21);
@@ -395,7 +394,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.Red;
-            this.label15.Location = new System.Drawing.Point(303, 81);
+            this.label15.Location = new System.Drawing.Point(303, 50);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(21, 25);
             this.label15.TabIndex = 39;
@@ -405,7 +404,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             this.txtLastName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLastName.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtLastName.Location = new System.Drawing.Point(242, 107);
+            this.txtLastName.Location = new System.Drawing.Point(242, 76);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(152, 21);
             this.txtLastName.TabIndex = 4;
@@ -413,7 +412,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(239, 90);
+            this.label14.Location = new System.Drawing.Point(239, 59);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(67, 15);
             this.label14.TabIndex = 37;
@@ -422,17 +421,17 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // txtOpinion
             // 
             this.txtOpinion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtOpinion.Location = new System.Drawing.Point(13, 525);
+            this.txtOpinion.Location = new System.Drawing.Point(13, 494);
             this.txtOpinion.MaxLength = 37267;
             this.txtOpinion.Multiline = true;
             this.txtOpinion.Name = "txtOpinion";
-            this.txtOpinion.Size = new System.Drawing.Size(393, 99);
+            this.txtOpinion.Size = new System.Drawing.Size(393, 75);
             this.txtOpinion.TabIndex = 17;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(10, 503);
+            this.label13.Location = new System.Drawing.Point(10, 472);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(396, 15);
             this.label13.TabIndex = 35;
@@ -441,7 +440,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // txtAttend
             // 
             this.txtAttend.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtAttend.Location = new System.Drawing.Point(263, 460);
+            this.txtAttend.Location = new System.Drawing.Point(263, 429);
             this.txtAttend.MaxLength = 120;
             this.txtAttend.Name = "txtAttend";
             this.txtAttend.Size = new System.Drawing.Size(335, 21);
@@ -450,7 +449,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(263, 442);
+            this.label12.Location = new System.Drawing.Point(263, 411);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(152, 15);
             this.label12.TabIndex = 33;
@@ -459,7 +458,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 252);
+            this.label7.Location = new System.Drawing.Point(9, 221);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(96, 15);
             this.label7.TabIndex = 26;
@@ -478,7 +477,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.dtTodayDate.Name = "dtTodayDate";
             this.dtTodayDate.Size = new System.Drawing.Size(152, 21);
             this.dtTodayDate.TabIndex = 24;
-            this.dtTodayDate.Value = new System.DateTime(2015, 10, 30, 0, 0, 0, 0);
+            this.dtTodayDate.Value = new System.DateTime(2015, 11, 12, 0, 0, 0, 0);
             this.dtTodayDate.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // label6
@@ -496,7 +495,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.lblDOBRequired.AutoSize = true;
             this.lblDOBRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDOBRequired.ForeColor = System.Drawing.Color.Red;
-            this.lblDOBRequired.Location = new System.Drawing.Point(480, 82);
+            this.lblDOBRequired.Location = new System.Drawing.Point(480, 51);
             this.lblDOBRequired.Name = "lblDOBRequired";
             this.lblDOBRequired.Size = new System.Drawing.Size(21, 25);
             this.lblDOBRequired.TabIndex = 19;
@@ -507,7 +506,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.lblNameRequired.AutoSize = true;
             this.lblNameRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNameRequired.ForeColor = System.Drawing.Color.Red;
-            this.lblNameRequired.Location = new System.Drawing.Point(71, 81);
+            this.lblNameRequired.Location = new System.Drawing.Point(71, 50);
             this.lblNameRequired.Name = "lblNameRequired";
             this.lblNameRequired.Size = new System.Drawing.Size(21, 25);
             this.lblNameRequired.TabIndex = 18;
@@ -516,7 +515,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // lblSalary
             // 
             this.lblSalary.AutoSize = true;
-            this.lblSalary.Location = new System.Drawing.Point(9, 140);
+            this.lblSalary.Location = new System.Drawing.Point(9, 109);
             this.lblSalary.Name = "lblSalary";
             this.lblSalary.Size = new System.Drawing.Size(86, 15);
             this.lblSalary.TabIndex = 15;
@@ -525,7 +524,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // txtAddress
             // 
             this.txtAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtAddress.Location = new System.Drawing.Point(12, 159);
+            this.txtAddress.Location = new System.Drawing.Point(12, 128);
             this.txtAddress.MaxLength = 75;
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(326, 21);
@@ -536,7 +535,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.dtDateOfBirth.AllowDrop = true;
             this.dtDateOfBirth.CustomFormat = "MM/dd/yyyy";
             this.dtDateOfBirth.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDateOfBirth.Location = new System.Drawing.Point(414, 107);
+            this.dtDateOfBirth.Location = new System.Drawing.Point(414, 76);
             this.dtDateOfBirth.Name = "dtDateOfBirth";
             this.dtDateOfBirth.Size = new System.Drawing.Size(103, 21);
             this.dtDateOfBirth.TabIndex = 5;
@@ -545,7 +544,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // btnRegister
             // 
             this.btnRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRegister.Location = new System.Drawing.Point(524, 596);
+            this.btnRegister.Location = new System.Drawing.Point(454, 494);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(115, 28);
             this.btnRegister.TabIndex = 17;
@@ -556,7 +555,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // txtFirstName
             // 
             this.txtFirstName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFirstName.Location = new System.Drawing.Point(12, 107);
+            this.txtFirstName.Location = new System.Drawing.Point(12, 76);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(152, 21);
             this.txtFirstName.TabIndex = 2;
@@ -564,7 +563,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // lblDateOfBirth
             // 
             this.lblDateOfBirth.AutoSize = true;
-            this.lblDateOfBirth.Location = new System.Drawing.Point(411, 89);
+            this.lblDateOfBirth.Location = new System.Drawing.Point(411, 58);
             this.lblDateOfBirth.Name = "lblDateOfBirth";
             this.lblDateOfBirth.Size = new System.Drawing.Size(74, 15);
             this.lblDateOfBirth.TabIndex = 1;
@@ -573,7 +572,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(9, 86);
+            this.lblName.Location = new System.Drawing.Point(9, 55);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(67, 15);
             this.lblName.TabIndex = 0;
@@ -583,7 +582,6 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             this.tabSearchManage.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.tabSearchManage.Controls.Add(this.btnUpdate);
-            this.tabSearchManage.Controls.Add(this.btnExport);
             this.tabSearchManage.Controls.Add(this.tabControl1);
             this.tabSearchManage.Controls.Add(this.dataGridViewMembers);
             this.tabSearchManage.Location = new System.Drawing.Point(4, 24);
@@ -595,23 +593,13 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(24, 478);
+            this.btnUpdate.Location = new System.Drawing.Point(11, 461);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(84, 27);
             this.btnUpdate.TabIndex = 10;
-            this.btnUpdate.Text = "Update";
+            this.btnUpdate.Text = "View Details";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
-            // 
-            // btnExport
-            // 
-            this.btnExport.Location = new System.Drawing.Point(858, 617);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(100, 28);
-            this.btnExport.TabIndex = 6;
-            this.btnExport.Text = "Export";
-            this.btnExport.UseVisualStyleBackColor = true;
-            this.btnExport.Click += new System.EventHandler(this.Export_Click);
             // 
             // tabControl1
             // 
@@ -713,18 +701,18 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.dataGridViewMembers.AllowUserToOrderColumns = true;
             this.dataGridViewMembers.AllowUserToResizeColumns = false;
             this.dataGridViewMembers.AllowUserToResizeRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Gainsboro;
-            this.dataGridViewMembers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Gainsboro;
+            this.dataGridViewMembers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridViewMembers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewMembers.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewMembers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewMembers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridViewMembers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewMembers.Location = new System.Drawing.Point(10, 132);
             this.dataGridViewMembers.MultiSelect = false;
@@ -806,8 +794,8 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             // saveFileDialog
             // 
-            this.saveFileDialog.DefaultExt = "csv";
-            this.saveFileDialog.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
+            this.saveFileDialog.DefaultExt = "txt";
+            this.saveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             this.saveFileDialog.InitialDirectory = "@\"C:\\\"";
             this.saveFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog_FileOk);
             // 
@@ -821,8 +809,8 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.Controls.Add(this.Header);
             this.Controls.Add(this.tab);
             this.Name = "Manage";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Small Blessings Ministry Information Sheet";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Manage_Load);
             this.tab.ResumeLayout(false);
             this.tabRegistration.ResumeLayout(false);
@@ -856,7 +844,6 @@ namespace SmallBlessing.Desktop.Forms.Membership
         private System.Windows.Forms.TabPage tabRegistration;
         private System.Windows.Forms.TabPage tabSearchManage;
         private System.Windows.Forms.DataGridView dataGridViewMembers;
-        private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Button btnRefresh;

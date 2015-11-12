@@ -38,6 +38,9 @@ namespace SmallBlessing.Data.BusinessService
             return this.memberAccess.GetClubMemberById(id);
         }
 
+        
+
+
         /// <summary>
         /// Service method to get club member by Id
         /// </summary>
@@ -56,6 +59,18 @@ namespace SmallBlessing.Data.BusinessService
         public DataTable GetAllClubMembers()
         {            
             return this.memberAccess.GetAllClubMembers();
+        }
+
+        public DataTable GetClubMembertoExport(int days)
+        {
+            return this.memberAccess.GetClubMembertoExport(days);
+        }
+
+
+        public DataTable GetClubMemberItemsById(int Id)
+        {
+            return this.memberAccess.GetClubMemberItemsById(Id);
+            //date, descr, comments, initials
         }
 
 
