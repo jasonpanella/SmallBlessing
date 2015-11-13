@@ -364,8 +364,21 @@ namespace SmallBlessing.Desktop.Forms.Membership
                     }
 
                     string phone = string.Empty;
-                    if (!(txtContactNumber.Text == "(   )    -"))                  
+                    if (!(txtContactNumber.Text == "(   )    -"))
                         phone = txtContactNumber.Text;
+
+                    bool guardianFlag = false;
+                    if (rdoGuardian1.Checked)
+                        guardianFlag = true;
+
+                    bool churchHomeFlag = false;
+                    if (rdoChurchHome1.Checked)
+                        churchHomeFlag = true;
+
+                    bool leaveMessageFlag = false;
+                    if (rdoLeaveMessage1.Checked)
+                        leaveMessageFlag = true;
+
 
                     // Assign the values to the model
                     PersonModel clubMemberModel = new PersonModel()
@@ -377,14 +390,15 @@ namespace SmallBlessing.Desktop.Forms.Membership
                         Address = txtAddress.Text.Trim(),
                         PhoneNumber = phone.Trim(),
                         DateOfBirth = dtDateOfBirth.Value,
-                        ChurchHome = bool.Parse(rdoChurchHome1.Checked.ToString()),
+                        ChurchHome = churchHomeFlag,
                         ChurchName = txtAttend.Text.Trim(),
                         Opinion = txtOpinion.Text.Trim(),
-                        LeaveMessage = bool.Parse(rdoLeaveMessage1.Checked.ToString()),
+                        LeaveMessage = leaveMessageFlag,
                         City = txtCity.Text.Trim(),
                         State = txtState.Text.Trim(),
                         Zip = txtZip.Text.Trim(),
                         ExportFlag = 0,
+                        ProofGuardianFlag = guardianFlag,
                         DependentModelList = depList
                     };
 
@@ -765,98 +779,36 @@ namespace SmallBlessing.Desktop.Forms.Membership
         /// <param name="e">event args</param>
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            //DataGridView dgv = (DataGridView)sender;
             PersonModel p = new PersonModel();
             try
             {
-                //if (dgv.SelectedRows.Count > 0)
-                {
-                    //string clubMemberId = dgv.SelectedRows[0].Cells[0].Value.ToString();
-                    //memberId = int.Parse(clubMemberId);
-                    // TODO add new method call to bring entire person object back.
-                    DataRow dataRow = this.clubMemberService.GetFullClubMemberById(memberId);
-                    p.FirstName = dataRow["FirstName"].ToString();
-                    p.MiddleIntial = dataRow["MI"].ToString();
-                    p.LastName = dataRow["LastName"].ToString();
-                    p.Address = dataRow["Address"].ToString();
-                    p.City = dataRow["City"].ToString();
-                    p.State = dataRow["State"].ToString();
-                    p.Zip = dataRow["Zip"].ToString();
-                    p.PhoneNumber = dataRow["Phone"].ToString();
-                    p.LeaveMessage = Convert.ToBoolean(dataRow["PhoneContactFlag"].ToString());
-                    p.ChurchName = dataRow["ChurchHomeName"].ToString();
-                    p.DateOfBirth = Convert.ToDateTime(dataRow["BirthDate"]);
-                    p.Opinion = dataRow["Opinion"].ToString();
-                    p.ChurchHome = Convert.ToBoolean(dataRow["ChurchHomeFlag"].ToString());
-                    p.ChurchName = dataRow["ChurchHomeName"].ToString();
-                    p.PersonID = Convert.ToInt32(dataRow["PersonID"].ToString());
-                    //p.Opinion = data//.ToShortDateString();
-                    //txt2Name.Text = dataRow["Name"].ToString();
-                    //dt2DateOfBirth.Value = Convert.ToDateTime(dataRow["DateOfBirth"]);
-                    //cmb2Occupation.SelectedItem = (Occupation)dataRow["Occupation"];
-                    //cmb2MaritalStatus.SelectedItem = (MaritalStatus)dataRow["MaritalStatus"];
-                    //cmb2HealthStatus.SelectedItem = (HealthStatus)dataRow["HealthStatus"];
-                    //txt2Salary.Text = dataRow["Salary"].ToString() == "0.0000" ? string.Empty : dataRow["Salary"].ToString();
-                    //txt2NoOfChildren.Text = dataRow["NumberOfChildren"].ToString();
-                }
+                DataRow dataRow = this.clubMemberService.GetFullClubMemberById(memberId);
+                p.FirstName = dataRow["FirstName"].ToString();
+                p.MiddleIntial = dataRow["MI"].ToString();
+                p.LastName = dataRow["LastName"].ToString();
+                p.Address = dataRow["Address"].ToString();
+                p.City = dataRow["City"].ToString();
+                p.State = dataRow["State"].ToString();
+                p.Zip = dataRow["Zip"].ToString();
+                p.PhoneNumber = dataRow["Phone"].ToString();
+                p.LeaveMessage = Convert.ToBoolean(dataRow["PhoneContactFlag"].ToString());
+                p.ChurchName = dataRow["ChurchHomeName"].ToString();
+                p.DateOfBirth = Convert.ToDateTime(dataRow["BirthDate"]);
+                p.Opinion = dataRow["Opinion"].ToString();
+                p.ChurchHome = Convert.ToBoolean(dataRow["ChurchHomeFlag"].ToString());
+                p.ChurchName = dataRow["ChurchHomeName"].ToString();
+                p.PersonID = Convert.ToInt32(dataRow["PersonID"].ToString());
+                p.DateUpdated = Convert.ToDateTime(dataRow["DateUpdated"]);
+
             }
             catch (Exception ex)
             {
                 this.ShowErrorMessage(ex);
             }
 
-
-
-
-
-
             var frmPerson = new Person(p, this);
             frmPerson.Show();
 
-
-            //try
-            //{
-            //    if (this.ValidateUpdate())
-            //    {
-            //        ClubMemberModel clubMemberModel = new ClubMemberModel()
-            //        {
-            //            Id = this.memberId,
-            //            //Name = txt2Name.Text.Trim(),
-            //            //DateOfBirth = dt2DateOfBirth.Value,
-            //            //Occupation = (Occupation)cmb2Occupation.SelectedValue,
-            //           // HealthStatus = (HealthStatus)cmb2HealthStatus.SelectedValue,
-            //            //MaritalStatus = (MaritalStatus)cmb2MaritalStatus.SelectedValue,
-            //            //Salary = txt2Salary.Text.Trim() == string.Empty ? 0 : Convert.ToDecimal(txt2Salary.Text),
-            //            //NumberOfChildren = txt2NoOfChildren.Text.Trim() == string.Empty ? 0 : Convert.ToInt16(txt2NoOfChildren.Text)
-            //        };
-
-            //        var flag = this.clubMemberService.UpdateClubMember(clubMemberModel);
-
-            //        if (flag)
-            //        {
-            //            DataTable data = this.clubMemberService.GetAllClubMembers();
-            //            this.LoadDataGridView(data);
-
-            //            MessageBox.Show(
-            //                Resources.Update_Successful_Message,
-            //                Resources.Update_Successful_Message_Title,
-            //                MessageBoxButtons.OK,
-            //                MessageBoxIcon.Information);                        
-            //        }
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show(
-            //            this.errorMessage,
-            //            Resources.Registration_Error_Message_Title,
-            //            MessageBoxButtons.OK,
-            //            MessageBoxIcon.Error);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    this.ShowErrorMessage(ex);
-            //}
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -1006,20 +958,20 @@ namespace SmallBlessing.Desktop.Forms.Membership
             StringBuilder sb = new StringBuilder();
             try
             {
-                int DaysToExport = Convert.ToInt32(ConfigurationManager.AppSettings["DaysToExport"].ToString()); 
+                int DaysToExport = Convert.ToInt32(ConfigurationManager.AppSettings["DaysToExport"].ToString());
                 DataTable table = this.clubMemberService.GetClubMembertoExport(DaysToExport);
 
                 int lineCounter = 100;
-                for (int i=0; i<lineCounter; i++)
+                for (int i = 0; i < lineCounter; i++)
                 {
                     sb.Append("-");
                 }
                 sb.AppendLine();
                 sb.AppendLine("SmallBlessings Information Sheet");
                 sb.AppendLine("Weekending: " + DateTime.Now.ToShortDateString());
-                
+
                 lineCounter = 100;
-                for (int i=0; i<lineCounter; i++)
+                for (int i = 0; i < lineCounter; i++)
                 {
                     sb.Append("-");
                 }

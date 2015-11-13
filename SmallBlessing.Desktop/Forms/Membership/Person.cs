@@ -90,12 +90,18 @@ namespace SmallBlessing.Desktop.Forms.Membership
                 rdoLeaveMessage2.Checked = false;
             }
 
+            if (personObject.ProofGuardianFlag)
+            {
+                rdoGuardian1.Checked = true;
+                rdoGuardian2.Checked = false;
+            }
+
 
             DataTable data = this.clubMemberService.GetDependents(memberId);
             this.InitializeUpdate();
             this.LoadDataGridView(data);
 
-            
+            lblLastVisit.Text = personObject.DateUpdated.ToString();
 
 
 
@@ -103,14 +109,6 @@ namespace SmallBlessing.Desktop.Forms.Membership
             _datePicker.CustomFormat = "dd/MM/yyyy";
             _datePicker.ValueChanged += _datePicker_ValueChanged;
 
-               // rdoLeaveMessage1.
-            //var churchName = string.Empty;
-            //if (!String.IsNullOrEmpty(personObject.Opinion.ToString()))
-            //    churchName = personObject.Opinion.ToString();
-            //txtOpinion.Text = churchName;
-                
-            //string.Empty ? 0 : Convert.ToDecimal(txtSalary.Text)
-            //dtDateOfBirth.Text = Convert.ToDateTime(personObject.DateOfBirth);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.btnClose_Click);
         }
 
@@ -120,20 +118,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
         private void InitializeResourceString()
         {
             // Registeration
-       
-            lblDateOfBirth.Text = Resources.Registration_DateOfBirth_Label_Text;
-           
-      
-          
-
-            // Search, Print, Export, Update, Delete
-            
-
-            //btnPrintPreview.Text = Resources.Print_PrintPreview_Button_Text;
-            //btnPrint.Text = Resources.Print_Print_Button_Text;
-           
-            //btnUpdate.Text = Resources.Update_Button_Text;
-            //btnDelete.Text = Resources.Delete_Button_Text;
+            lblDateOfBirth.Text = Resources.Registration_DateOfBirth_Label_Text;        
         }
 
         private void dataGridViewItems_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -831,9 +816,9 @@ namespace SmallBlessing.Desktop.Forms.Membership
                         State = txtState.Text.Trim(),
                         Zip = txtZip.Text.Trim(),
                         DateUpdated = DateTime.Now,
+                        ProofGuardianFlag = bool.Parse(rdoGuardian1.Checked.ToString()),
                         DependentModelList = depList,
                         ItemModelList = itemList
-
                     };
 
                     var flag = this.clubMemberService.UpdateClubMember(clubMemberModel);
@@ -1110,6 +1095,16 @@ namespace SmallBlessing.Desktop.Forms.Membership
         }
 
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
         {
 
         }

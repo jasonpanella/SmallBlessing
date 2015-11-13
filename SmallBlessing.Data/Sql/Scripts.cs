@@ -15,14 +15,14 @@ namespace SmallBlessing.Data.Sql
         /// Sql to get a club member details by Id
         /// </summary>
         public static readonly string sqlGetFullClubMemberById = "Select" +
-            " PersonID, FirstName, MiddleInitial as MI, LastName, Address, City, State, Zip, Phone,PhoneContactFlag,ChurchHomeName, ChurchHomeFlag, BirthDate, Opinion" +
+            " PersonID, FirstName, MiddleInitial as MI, LastName, Address, City, State, Zip, Phone,PhoneContactFlag,ChurchHomeName, ChurchHomeFlag, BirthDate, Opinion, DateUpdated,ProofGuardianFlag" +
             " From Person Where PersonID = @PersonID";
         
         /// <summary>
         /// Sql to get a club member details by Id
         /// </summary>
         public static readonly string sqlGetClubMemberById = "Select" +
-            " PersonID, FirstName, MiddleInitial as MI, LastName, Address, City, State, Zip, Phone, ChurchHomeName, BirthDate" +
+            " PersonID, FirstName, MiddleInitial as MI, LastName, Address, City, State, Zip, Phone, ChurchHomeName, BirthDate, DateUpdated, ProofGuardianFlag " +
             " From Person Where PersonID = @PersonID";
 
         public static readonly string sqlGetDependentsById = "Select" +
@@ -33,7 +33,7 @@ namespace SmallBlessing.Data.Sql
         /// Sql to get all club members
         /// </summary>
         public static readonly string SqlGetAllClubMembers = "Select" +
-            " PersonID, FirstName, MiddleInitial as MI, LastName, Address, City, State, Zip, Phone, ChurchHomeName, BirthDate" +
+            " PersonID, FirstName as 'First Name', MiddleInitial as MI, LastName as 'Last Name', Address, City, State, Zip, Phone, ChurchHomeName 'Church Home', BirthDate, DateUpdated as 'Last Visit' " +
             " FROM Person";
 
         public static readonly string SqlGetAllClubMembersToExport = "Select" +
@@ -54,8 +54,8 @@ namespace SmallBlessing.Data.Sql
         /// sql to insert a club member details
         /// </summary>
         public static readonly string SqlInsertPerson = "Insert Into" +
-            " Person(FirstName, MiddleInitial, LastName,Address,City,State,Zip,Phone,PhoneContactFlag,ChurchHomeFlag,ChurchHomeName,Opinion,BirthDate,DateCreated,DateUpdated,ExportFlag)" +
-            " Values(@FirstName, @MiddleInitial, @LastName,@Address,@City,@State,@Zip,@Phone,@PhoneContactFlag,@ChurchHomeFlag,@ChurchHomeName,@Opinion,@BirthDate,GETDATE(),GETDATE(),0)" +
+            " Person(FirstName, MiddleInitial, LastName,Address,City,State,Zip,Phone,PhoneContactFlag,ChurchHomeFlag,ChurchHomeName,Opinion,BirthDate,DateCreated,DateUpdated,ExportFlag,ProofGuardianFlag)" +
+            " Values(@FirstName, @MiddleInitial, @LastName,@Address,@City,@State,@Zip,@Phone,@PhoneContactFlag,@ChurchHomeFlag,@ChurchHomeName,@Opinion,@BirthDate,GETDATE(),GETDATE(),0,@ProofGuardianFlag)" +
             "SELECT SCOPE_IDENTITY()";
 
         public static readonly string SqlInsertDependent = "Insert Into" +
@@ -79,8 +79,11 @@ namespace SmallBlessing.Data.Sql
         /// sql to search for club members
         /// </summary>
         public static readonly string SqlSearchPeople = "Select " +
-            " PersonID, FirstName, MiddleInitial as MI, LastName, Address, City, State, Zip, Phone, ChurchHomeName, BirthDate" +
-            " From Person Where(@FirstName is null or @FirstName = FirstName) {0} (@LastName is null or @LastName = LastName)";
+            " PersonID, FirstName as 'First Name', MiddleInitial as MI, LastName as 'Last Name', Address, City, State, Zip, Phone, ChurchHomeName 'Church Home', BirthDate, DateUpdated as 'Last Visit' " +
+            " From Person Where (@FirstName is null or FirstName like @FirstName) {0} (@LastName is null or LastName like @LastName)";
+            
+            
+            //(@FirstName is null or @FirstName like FirstName" + "%" + " ) {0} (@LastName is null or @LastName like LastName " + "%" + ")";
 
         //public static readonly string SqlSearchPeople = "Select " +
         //    " Id, Name, DateOfBirth, Occupation, MaritalStatus, HealthStatus, Salary, NumberOfChildren" +
@@ -94,7 +97,7 @@ namespace SmallBlessing.Data.Sql
         public static readonly string sqlUpdateClubMember = "Update Person " +
             " Set [FirstName] = @FirstName,[MiddleInitial] = @MiddleInitial, [LastName] = @LastName, [Address] = @Address," +
             " [City] = @City, [Zip] = @Zip, [State] = @State, [Phone] = @Phone, [PhoneContactFlag] = @PhoneCOntactFlag," +
-            " [Opinion] = @Opinion, [BirthDate] = @BirthDate, [ChurchHomeName] = @ChurchHomeName, [DateUpdated] = @DateUpdated" +
+            " [Opinion] = @Opinion, [BirthDate] = @BirthDate, [ChurchHomeName] = @ChurchHomeName, [DateUpdated] = @DateUpdated, [ProofGuardianFlag] = @ProofGuardianFlag" +
             " Where ([PersonID] = @ID)";
 
         public static readonly string sqlUpdateClubMemberDependent = "Update Dependents " +

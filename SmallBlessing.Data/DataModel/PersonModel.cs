@@ -91,6 +91,8 @@ namespace SmallBlessing.Data.DataModel
 
         public int ExportFlag { get; set; }
 
+        public bool ProofGuardianFlag { get; set; }
+
         public List<DependentModel> DependentModelList { get; set; }
 
         public List<ItemModel> ItemModelList { get; set; }

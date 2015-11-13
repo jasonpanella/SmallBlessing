@@ -242,6 +242,9 @@ namespace SmallBlessing.Data.DataAccess
         public DataTable SearchClubMembers(string firstName, string lastName, string operand)
         {
             DataTable dataTable = new DataTable();
+            firstName = string.Concat(firstName, '%');
+            lastName = string.Concat(lastName, '%');
+
 
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
@@ -311,7 +314,8 @@ namespace SmallBlessing.Data.DataAccess
                             cmd.Parameters.AddWithValue("@PhoneContactFlag", person.LeaveMessage);
                             cmd.Parameters.AddWithValue("@City", person.City);
                             cmd.Parameters.AddWithValue("@State", person.State);
-                            cmd.Parameters.AddWithValue("@Zip", person.Zip);                                     
+                            cmd.Parameters.AddWithValue("@Zip", person.Zip);
+                            cmd.Parameters.AddWithValue("@ProofGuardianFlag", person.ProofGuardianFlag);
 
                             id = (int)(decimal)cmd.ExecuteScalar();
                             rowsAffected = 1;                            
@@ -416,6 +420,7 @@ namespace SmallBlessing.Data.DataAccess
                             cmd.Parameters.AddWithValue("@Zip", person.Zip);
                             cmd.Parameters.AddWithValue("@ID", person.PersonID);
                             cmd.Parameters.AddWithValue("@DateUpdated", person.DateUpdated);
+                            cmd.Parameters.AddWithValue("@ProofGuardianFlag", person.ProofGuardianFlag);
                             // Open the connection, execute the query and close the connection
                             //cmd.Connection.Open();
                             rowsAffected = cmd.ExecuteNonQuery();

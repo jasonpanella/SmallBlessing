@@ -32,13 +32,16 @@ namespace SmallBlessing.Desktop.Forms.Membership
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tab = new System.Windows.Forms.TabControl();
             this.tabRegistration = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabRegister = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.rdoGuardian2 = new System.Windows.Forms.RadioButton();
+            this.rdoGuardian1 = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rdoChurchHome2 = new System.Windows.Forms.RadioButton();
             this.rdoChurchHome1 = new System.Windows.Forms.RadioButton();
@@ -106,6 +109,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.tabRegistration.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabRegister.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDependents)).BeginInit();
@@ -161,6 +165,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             // tabRegister
             // 
+            this.tabRegister.Controls.Add(this.groupBox3);
             this.tabRegister.Controls.Add(this.groupBox2);
             this.tabRegister.Controls.Add(this.groupBox1);
             this.tabRegister.Controls.Add(this.label4);
@@ -200,6 +205,39 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.tabRegister.TabIndex = 0;
             this.tabRegister.Text = "Member";
             this.tabRegister.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.rdoGuardian2);
+            this.groupBox3.Controls.Add(this.rdoGuardian1);
+            this.groupBox3.Location = new System.Drawing.Point(464, 219);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(203, 53);
+            this.groupBox3.TabIndex = 113;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Provided Proof of Guardianship?";
+            // 
+            // rdoGuardian2
+            // 
+            this.rdoGuardian2.AutoSize = true;
+            this.rdoGuardian2.Location = new System.Drawing.Point(79, 24);
+            this.rdoGuardian2.Name = "rdoGuardian2";
+            this.rdoGuardian2.Size = new System.Drawing.Size(41, 19);
+            this.rdoGuardian2.TabIndex = 12;
+            this.rdoGuardian2.TabStop = true;
+            this.rdoGuardian2.Text = "No";
+            this.rdoGuardian2.UseVisualStyleBackColor = true;
+            // 
+            // rdoGuardian1
+            // 
+            this.rdoGuardian1.AutoSize = true;
+            this.rdoGuardian1.Location = new System.Drawing.Point(26, 24);
+            this.rdoGuardian1.Name = "rdoGuardian1";
+            this.rdoGuardian1.Size = new System.Drawing.Size(45, 19);
+            this.rdoGuardian1.TabIndex = 11;
+            this.rdoGuardian1.TabStop = true;
+            this.rdoGuardian1.Text = "Yes";
+            this.rdoGuardian1.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -334,8 +372,8 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             this.dataGridViewDependents.AllowUserToResizeColumns = false;
             this.dataGridViewDependents.AllowUserToResizeRows = false;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Gainsboro;
-            this.dataGridViewDependents.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
+            this.dataGridViewDependents.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewDependents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewDependents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewDependents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -345,7 +383,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.LivesWith});
             this.dataGridViewDependents.Location = new System.Drawing.Point(13, 278);
             this.dataGridViewDependents.Name = "dataGridViewDependents";
-            this.dataGridViewDependents.Size = new System.Drawing.Size(626, 95);
+            this.dataGridViewDependents.Size = new System.Drawing.Size(654, 95);
             this.dataGridViewDependents.TabIndex = 13;
             this.dataGridViewDependents.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDependents_CellClick);
             this.dataGridViewDependents.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDependents_CellContentClick);
@@ -368,7 +406,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             // LivesWith
             // 
-            this.LivesWith.HeaderText = "Child lives with";
+            this.LivesWith.HeaderText = "Child Lives With";
             this.LivesWith.Name = "LivesWith";
             // 
             // label16
@@ -701,18 +739,18 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.dataGridViewMembers.AllowUserToOrderColumns = true;
             this.dataGridViewMembers.AllowUserToResizeColumns = false;
             this.dataGridViewMembers.AllowUserToResizeRows = false;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Gainsboro;
-            this.dataGridViewMembers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Gainsboro;
+            this.dataGridViewMembers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewMembers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewMembers.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewMembers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewMembers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewMembers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewMembers.Location = new System.Drawing.Point(10, 132);
             this.dataGridViewMembers.MultiSelect = false;
@@ -817,6 +855,8 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.tabControl2.ResumeLayout(false);
             this.tabRegister.ResumeLayout(false);
             this.tabRegister.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -907,5 +947,8 @@ namespace SmallBlessing.Desktop.Forms.Membership
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1; 
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.RadioButton rdoGuardian2;
+        private System.Windows.Forms.RadioButton rdoGuardian1;
     }
 }
