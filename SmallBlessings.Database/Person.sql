@@ -17,5 +17,6 @@
     [State] VARCHAR(50) NOT NULL, 
     [Zip] VARCHAR(5) NOT NULL, 
     [ExportFlag] BIT NOT NULL, 
-    [ProofGuardianFlag] BIT NOT NULL
+    [ProofGuardianFlag] BIT NOT NULL, 
+    [LockItemDate] DATETIME NULL
 )

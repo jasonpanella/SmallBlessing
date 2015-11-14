@@ -14,8 +14,12 @@ namespace SmallBlessing.Data.Sql
         /// <summary>
         /// Sql to get a club member details by Id
         /// </summary>
+        /// 
+
+        public static readonly string SqlGetClubMemberVisits = "SELECT count(*) From Items Where ([Date] > DATEADD(year,-1,GETDATE()) and PersonID = @PersonID)";//DateUpdated > DATEADD(year,-1,GETDATE())";
+
         public static readonly string sqlGetFullClubMemberById = "Select" +
-            " PersonID, FirstName, MiddleInitial as MI, LastName, Address, City, State, Zip, Phone,PhoneContactFlag,ChurchHomeName, ChurchHomeFlag, BirthDate, Opinion, DateUpdated,ProofGuardianFlag" +
+            " PersonID, FirstName, MiddleInitial as MI, LastName, Address, City, State, Zip, Phone,PhoneContactFlag,ChurchHomeName, ChurchHomeFlag, BirthDate, Opinion, DateUpdated,ProofGuardianFlag,LockItemDate" +
             " From Person Where PersonID = @PersonID";
         
         /// <summary>
@@ -46,7 +50,7 @@ namespace SmallBlessing.Data.Sql
            " WHERE DATEDIFF(DAY,[DateUpdated],GETDATE()) <= @DaysToExport and ExportFlag = 0";
          
         public static readonly string SqlGetPersonItems = "Select" +
-            " ItemID, Description, Comments, Initials, Date" +
+            " ItemID, Description, Comments, Initials, Date"+//, LockItemsDate" +
             " FROM Items where PersonID = @PersonID";
 
 
@@ -97,8 +101,8 @@ namespace SmallBlessing.Data.Sql
         public static readonly string sqlUpdateClubMember = "Update Person " +
             " Set [FirstName] = @FirstName,[MiddleInitial] = @MiddleInitial, [LastName] = @LastName, [Address] = @Address," +
             " [City] = @City, [Zip] = @Zip, [State] = @State, [Phone] = @Phone, [PhoneContactFlag] = @PhoneCOntactFlag," +
-            " [Opinion] = @Opinion, [BirthDate] = @BirthDate, [ChurchHomeName] = @ChurchHomeName, [DateUpdated] = @DateUpdated, [ProofGuardianFlag] = @ProofGuardianFlag" +
-            " Where ([PersonID] = @ID)";
+            " [Opinion] = @Opinion, [BirthDate] = @BirthDate, [ChurchHomeName] = @ChurchHomeName, [DateUpdated] = @DateUpdated, [ProofGuardianFlag] = @ProofGuardianFlag," +
+            " [LockItemDate] = @LockItemDate Where ([PersonID] = @ID)";
 
         public static readonly string sqlUpdateClubMemberDependent = "Update Dependents " +
             " Set [Name] = @Name, [BirthDate] = @BirthDate, [Relationship] = @Relationship, [LivesWith] = @LivesWith" +

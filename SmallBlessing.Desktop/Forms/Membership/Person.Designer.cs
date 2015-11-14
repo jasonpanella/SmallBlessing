@@ -35,7 +35,11 @@ namespace SmallBlessing.Desktop.Forms.Membership
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.rdoGuardian2 = new System.Windows.Forms.RadioButton();
+            this.rdoGuardian1 = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblNumVisits = new System.Windows.Forms.Label();
             this.lblLastVisit = new System.Windows.Forms.Label();
             this.txtContactNumber = new System.Windows.Forms.MaskedTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -81,11 +85,9 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.rdoGuardian2 = new System.Windows.Forms.RadioButton();
-            this.rdoGuardian1 = new System.Windows.Forms.RadioButton();
             this.tab.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -96,7 +98,6 @@ namespace SmallBlessing.Desktop.Forms.Membership
             ((System.ComponentModel.ISupportInitialize)(this.smallBlessingsDataSet)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab
@@ -154,15 +155,58 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Member Info";
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.rdoGuardian2);
+            this.groupBox4.Controls.Add(this.rdoGuardian1);
+            this.groupBox4.Location = new System.Drawing.Point(446, 215);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(203, 53);
+            this.groupBox4.TabIndex = 115;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Provided Proof of Guardianship?";
+            // 
+            // rdoGuardian2
+            // 
+            this.rdoGuardian2.AutoSize = true;
+            this.rdoGuardian2.Location = new System.Drawing.Point(79, 24);
+            this.rdoGuardian2.Name = "rdoGuardian2";
+            this.rdoGuardian2.Size = new System.Drawing.Size(41, 19);
+            this.rdoGuardian2.TabIndex = 12;
+            this.rdoGuardian2.TabStop = true;
+            this.rdoGuardian2.Text = "No";
+            this.rdoGuardian2.UseVisualStyleBackColor = true;
+            // 
+            // rdoGuardian1
+            // 
+            this.rdoGuardian1.AutoSize = true;
+            this.rdoGuardian1.Location = new System.Drawing.Point(26, 24);
+            this.rdoGuardian1.Name = "rdoGuardian1";
+            this.rdoGuardian1.Size = new System.Drawing.Size(45, 19);
+            this.rdoGuardian1.TabIndex = 11;
+            this.rdoGuardian1.TabStop = true;
+            this.rdoGuardian1.Text = "Yes";
+            this.rdoGuardian1.UseVisualStyleBackColor = true;
+            // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.lblNumVisits);
             this.groupBox3.Controls.Add(this.lblLastVisit);
             this.groupBox3.Location = new System.Drawing.Point(23, 6);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(177, 43);
+            this.groupBox3.Size = new System.Drawing.Size(505, 43);
             this.groupBox3.TabIndex = 114;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Last Visit";
+            // 
+            // lblNumVisits
+            // 
+            this.lblNumVisits.AutoSize = true;
+            this.lblNumVisits.Location = new System.Drawing.Point(228, 17);
+            this.lblNumVisits.Name = "lblNumVisits";
+            this.lblNumVisits.Size = new System.Drawing.Size(21, 15);
+            this.lblNumVisits.TabIndex = 1;
+            this.lblNumVisits.Text = "00";
             // 
             // lblLastVisit
             // 
@@ -547,6 +591,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             // btnUpdate
             // 
+            this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpdate.Location = new System.Drawing.Point(40, 676);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(84, 27);
@@ -557,6 +602,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             // btnClose
             // 
+            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.Location = new System.Drawing.Point(149, 676);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(84, 27);
@@ -597,39 +643,6 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.toolStripMenuItem2.Size = new System.Drawing.Size(133, 22);
             this.toolStripMenuItem2.Text = "Delete Row";
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.rdoGuardian2);
-            this.groupBox4.Controls.Add(this.rdoGuardian1);
-            this.groupBox4.Location = new System.Drawing.Point(446, 215);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(203, 53);
-            this.groupBox4.TabIndex = 115;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Provided Proof of Guardianship?";
-            // 
-            // rdoGuardian2
-            // 
-            this.rdoGuardian2.AutoSize = true;
-            this.rdoGuardian2.Location = new System.Drawing.Point(79, 24);
-            this.rdoGuardian2.Name = "rdoGuardian2";
-            this.rdoGuardian2.Size = new System.Drawing.Size(41, 19);
-            this.rdoGuardian2.TabIndex = 12;
-            this.rdoGuardian2.TabStop = true;
-            this.rdoGuardian2.Text = "No";
-            this.rdoGuardian2.UseVisualStyleBackColor = true;
-            // 
-            // rdoGuardian1
-            // 
-            this.rdoGuardian1.AutoSize = true;
-            this.rdoGuardian1.Location = new System.Drawing.Point(26, 24);
-            this.rdoGuardian1.Name = "rdoGuardian1";
-            this.rdoGuardian1.Size = new System.Drawing.Size(45, 19);
-            this.rdoGuardian1.TabIndex = 11;
-            this.rdoGuardian1.TabStop = true;
-            this.rdoGuardian1.Text = "Yes";
-            this.rdoGuardian1.UseVisualStyleBackColor = true;
-            // 
             // Person
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -647,6 +660,8 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.tab.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -660,8 +675,6 @@ namespace SmallBlessing.Desktop.Forms.Membership
             ((System.ComponentModel.ISupportInitialize)(this.smallBlessingsDataSet)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.contextMenuStrip2.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -720,5 +733,6 @@ namespace SmallBlessing.Desktop.Forms.Membership
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.RadioButton rdoGuardian2;
         private System.Windows.Forms.RadioButton rdoGuardian1;
+        private System.Windows.Forms.Label lblNumVisits;
     }
 }

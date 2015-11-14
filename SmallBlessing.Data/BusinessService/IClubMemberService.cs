@@ -49,6 +49,10 @@ namespace SmallBlessing.Data.BusinessService
 
         DataTable GetClubMembertoExport(int days);
 
+        int GetClubMemberVisits(int Id);
+
+
+
         /// <summary>
         /// Service method to create new member
         /// </summary>

@@ -158,7 +158,6 @@ namespace SmallBlessing.Data.DataAccess
             }
         }
 
-
         public DataTable GetDependents(int PersonID)
         {
             DataTable dataTable = new DataTable();
@@ -353,6 +352,46 @@ namespace SmallBlessing.Data.DataAccess
             return rowsAffected > 0;
         }
 
+        public int GetClubMemberVisits(int personID)
+        {
+            //var rowsAffected = 0;
+            var id = 0;
+            //SqlTransaction transaction;
+            try
+            {
+                using (TransactionScope ts = new TransactionScope())
+                {
+                    using (SqlConnection conn = new SqlConnection(ConnectionString))
+                    {
+                        conn.Open();
+
+                        using (SqlCommand cmd = new SqlCommand())
+                        {
+                            // Set the command object properties
+                            cmd.Connection = conn;
+                            cmd.CommandText = Scripts.SqlGetClubMemberVisits;
+
+                            // Add the input parameters to the parameter collection
+                            cmd.Parameters.AddWithValue("@PersonID", personID);
+                            //rowsAffected = cmd.ExecuteNonQuery();
+                            id = (int)cmd.ExecuteScalar();
+                            var rowsAffected = cmd.ExecuteNonQuery();
+                            //rowsAffected = 1;
+                        }
+                      
+                        ts.Complete();
+
+                    }
+                }
+            }
+            catch
+            {
+                //todo: add error handling
+
+            }
+            return id;
+        }
+
         public bool AddDependent(DependentModel dependent)
         {
             using (SqlConnection conn = new SqlConnection(ConnectionString))
@@ -421,6 +460,7 @@ namespace SmallBlessing.Data.DataAccess
                             cmd.Parameters.AddWithValue("@ID", person.PersonID);
                             cmd.Parameters.AddWithValue("@DateUpdated", person.DateUpdated);
                             cmd.Parameters.AddWithValue("@ProofGuardianFlag", person.ProofGuardianFlag);
+                            cmd.Parameters.AddWithValue("@LockItemDate", person.LockItemsDate);
                             // Open the connection, execute the query and close the connection
                             //cmd.Connection.Open();
                             rowsAffected = cmd.ExecuteNonQuery();
@@ -485,6 +525,7 @@ namespace SmallBlessing.Data.DataAccess
                                 cmd.Parameters.AddWithValue("@Description", dm.Description);
                                 cmd.Parameters.AddWithValue("@PersonID", memberID);
                                 cmd.Parameters.AddWithValue("@Initials", dm.Initials);
+                                
                                 //cmd.Parameters.AddWithValue("@DependentID", dm.DependentID);
 
                                 rowsAffected = cmd.ExecuteNonQuery();

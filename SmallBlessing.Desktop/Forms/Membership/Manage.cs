@@ -390,15 +390,15 @@ namespace SmallBlessing.Desktop.Forms.Membership
                         Address = txtAddress.Text.Trim(),
                         PhoneNumber = phone.Trim(),
                         DateOfBirth = dtDateOfBirth.Value,
-                        ChurchHome = churchHomeFlag,
+                        ChurchHome = bool.Parse(rdoChurchHome1.Checked.ToString()),
                         ChurchName = txtAttend.Text.Trim(),
                         Opinion = txtOpinion.Text.Trim(),
-                        LeaveMessage = leaveMessageFlag,
+                        LeaveMessage = bool.Parse(rdoLeaveMessage1.Checked.ToString()),
                         City = txtCity.Text.Trim(),
                         State = txtState.Text.Trim(),
                         Zip = txtZip.Text.Trim(),
                         ExportFlag = 0,
-                        ProofGuardianFlag = guardianFlag,
+                        ProofGuardianFlag = bool.Parse(rdoGuardian1.Checked.ToString()),
                         DependentModelList = depList
                     };
 
@@ -799,7 +799,9 @@ namespace SmallBlessing.Desktop.Forms.Membership
                 p.ChurchName = dataRow["ChurchHomeName"].ToString();
                 p.PersonID = Convert.ToInt32(dataRow["PersonID"].ToString());
                 p.DateUpdated = Convert.ToDateTime(dataRow["DateUpdated"]);
-
+                p.ProofGuardianFlag = Convert.ToBoolean(dataRow["ProofGuardianFlag"].ToString());
+                //p.LockItemsDate = Convert.ToDateTime(dataRow["LockItemDate"]);
+                p.LockItemsDate = dataRow["LockItemDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dataRow["LockItemDate"]); 
             }
             catch (Exception ex)
             {

@@ -46,6 +46,8 @@ namespace SmallBlessing.Desktop.Forms.Membership
         /// </summary>
         private int memberId;
 
+        private DateTime lockItemDate;
+
         Manage _manage;
 
         
@@ -74,6 +76,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             txtCity.Text = personObject.City.ToString();
             txtState.Text = personObject.State.ToString();
             txtZip.Text = personObject.Zip.ToString();
+            
             rdoChurchHome2.Checked = true;
             if (personObject.ChurchHome)
             {
@@ -83,6 +86,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             txtChurchName.Text = personObject.ChurchName.ToString();
             txtOpinion.Text = personObject.Opinion.ToString() == null ? string.Empty : personObject.Opinion.ToString();
             txtContactNumber.Text = personObject.PhoneNumber.ToString();
+            
             rdoLeaveMessage2.Checked = true;
             if (personObject.LeaveMessage)
             {
@@ -90,12 +94,12 @@ namespace SmallBlessing.Desktop.Forms.Membership
                 rdoLeaveMessage2.Checked = false;
             }
 
+            rdoGuardian2.Checked = true;
             if (personObject.ProofGuardianFlag)
             {
                 rdoGuardian1.Checked = true;
                 rdoGuardian2.Checked = false;
             }
-
 
             DataTable data = this.clubMemberService.GetDependents(memberId);
             this.InitializeUpdate();
@@ -103,7 +107,8 @@ namespace SmallBlessing.Desktop.Forms.Membership
 
             lblLastVisit.Text = personObject.DateUpdated.ToString();
 
-
+            var numVisits = this.clubMemberService.GetClubMemberVisits(memberId);
+            lblNumVisits.Text = numVisits.ToString();
 
             _datePicker.Visible = false;
             _datePicker.CustomFormat = "dd/MM/yyyy";
@@ -479,6 +484,13 @@ namespace SmallBlessing.Desktop.Forms.Membership
                     DataTable data = this.clubMemberService.GetClubMemberItemsById(this.memberId);
                     this.InitializeUpdate();
                     this.LoadDataGridItemView(data);
+
+                    //check if 6 visits in the current year or previous month////
+                    //var numVisits = this.clubMemberService.GetClubMemberVisits(memberId);
+                    //lblNumVisits.Text = numVisits.ToString();
+
+
+                    //this.dataGridViewItems.Columns["LockItemsDate"].Visible = false;
                                     
                 }
             }
@@ -777,23 +789,35 @@ namespace SmallBlessing.Desktop.Forms.Membership
                         };
                         depList.Add(dependentModel);
                     }
+                    //if 
+                    //var lockDate = Convert.ToDateTime(row.Cells["LockItemsDate"].Value.ToString());
+
 
                     List<ItemModel> itemList = new List<ItemModel>();
                     //loop through all dependents datagrid view
                     foreach (DataGridViewRow row in dataGridViewItems.Rows)
                     {
                         if (row.IsNewRow) continue;
+
+                        //DateTime lockDate = Convert.ToDateTime(_datePicker.Value.ToShortDateString());
+                        //if (!(string.IsNullOrEmpty(row.Cells["LockItemsDate"].Value.ToString())))
+                        //lockDate = Convert.ToDateTime(row.Cells["LockItemsDate"].Value.ToString());
+                        
                         ItemModel itemModel = new ItemModel()
                         {
                             Description = row.Cells["Description"].Value.ToString(),
                             Date = Convert.ToDateTime(_datePicker.Value.ToShortDateString()),
                             Comments = row.Cells["Comments"].Value.ToString(),
                             Initials = row.Cells["Initials"].Value.ToString(),
+                            //LockItemsDate = Convert.ToDateTime(_datePicker.Value.ToShortDateString()),//Convert.ToDateTime(row.Cells["LockItemsDate"].Value.ToString()),
                             PersonID = this.memberId
                             //ItemID = Convert.ToInt32(row.Cells["ItemID"].Value.ToString())
                         };
                         itemList.Add(itemModel);
                     }
+
+                    
+
 
                     string phone = string.Empty;
                     if (!(txtContactNumber.Text == "(   )    -"))
@@ -817,6 +841,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
                         Zip = txtZip.Text.Trim(),
                         DateUpdated = DateTime.Now,
                         ProofGuardianFlag = bool.Parse(rdoGuardian1.Checked.ToString()),
+                        LockItemsDate = DateTime.Now,
                         DependentModelList = depList,
                         ItemModelList = itemList
                     };

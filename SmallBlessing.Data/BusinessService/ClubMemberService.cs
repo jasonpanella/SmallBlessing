@@ -109,6 +109,12 @@ namespace SmallBlessing.Data.BusinessService
             return this.memberAccess.AddDependent(dependent);
         }
 
+        public int GetClubMemberVisits(int Id)
+        {
+            return this.memberAccess.GetClubMemberVisits(Id);
+        }
+
+
         /// <summary>
         /// Service method to update club member
         /// </summary>

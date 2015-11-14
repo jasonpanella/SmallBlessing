@@ -21,6 +21,8 @@ namespace SmallBlessing.Data.DataModel
         public string Initials { get; set; }
 
         public DateTime Date { get; set; }
+
+        //public DateTime LockItemsDate { get; set; }
         
         /// <summary>
         /// Gets or sets member id

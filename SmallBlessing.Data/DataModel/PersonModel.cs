@@ -89,6 +89,8 @@ namespace SmallBlessing.Data.DataModel
         /// </summary>
         public DateTime DateUpdated { get; set; }
 
+        public DateTime? LockItemsDate { get; set; }
+
         public int ExportFlag { get; set; }
 
         public bool ProofGuardianFlag { get; set; }

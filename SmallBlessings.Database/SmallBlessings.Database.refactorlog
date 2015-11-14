@@ -49,4 +49,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="ItemId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="7c49e258-8d11-40bf-9b33-1b61cda5baa1" ChangeDateTime="11/14/2015 17:04:12">
+    <Property Name="ElementName" Value="[dbo].[Items].[LockItemsDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Items]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LockItemsDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c4c8551a-4ab7-4172-91fb-9bd4d9fc8c6d" ChangeDateTime="11/14/2015 18:02:53">
+    <Property Name="ElementName" Value="[dbo].[Items].[LockItemsDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Items]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LockItemsDateDate" />
+  </Operation>
 </Operations>
