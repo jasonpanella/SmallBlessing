@@ -49,9 +49,9 @@ namespace SmallBlessing.Data.BusinessService
 
         DataTable GetClubMembertoExport(int days);
 
-        int GetClubMemberVisits(int Id);
+        int GetClubMemberVisits(int Id, string date);
 
-
+        int GetClubMemberVisitsInMonth(int Id, string date);
 
         /// <summary>
         /// Service method to create new member
@@ -68,6 +68,10 @@ namespace SmallBlessing.Data.BusinessService
         /// <returns></returns>
         bool UpdateClubMember(PersonModel clubMember);
 
+        bool UpdateClubMemberLockItemFlag(PersonModel person);
+
+
+        //bool GetClubMemberLockDate(string date, int id);
         /// <summary>
         /// Method to delete a club member
         /// </summary>

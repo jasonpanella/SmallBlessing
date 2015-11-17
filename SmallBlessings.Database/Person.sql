@@ -18,5 +18,6 @@
     [Zip] VARCHAR(5) NOT NULL, 
     [ExportFlag] BIT NOT NULL, 
     [ProofGuardianFlag] BIT NOT NULL, 
-    [LockItemDate] DATETIME NULL
+    [LockItemDate] DATETIME NULL, 
+    [LockItemFlag] BIT NOT NULL
 )

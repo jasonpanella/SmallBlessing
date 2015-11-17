@@ -109,11 +109,15 @@ namespace SmallBlessing.Data.BusinessService
             return this.memberAccess.AddDependent(dependent);
         }
 
-        public int GetClubMemberVisits(int Id)
+        public int GetClubMemberVisits(int Id, string date)
         {
-            return this.memberAccess.GetClubMemberVisits(Id);
-        }
+            return this.memberAccess.GetClubMemberVisits(Id, date);
+        }        
 
+        public int GetClubMemberVisitsInMonth(int Id, string date)
+        {
+            return this.memberAccess.GetClubMemberVisitsInMonth(Id, date);
+        }
 
         /// <summary>
         /// Service method to update club member
@@ -123,6 +127,16 @@ namespace SmallBlessing.Data.BusinessService
         public bool UpdateClubMember(PersonModel clubMember)
         {
             return this.memberAccess.UpdateClubMember(clubMember);
+        }
+
+        //public bool GetClubMemberLockDate(string date, int id)
+        //{
+        //    //return this.memberAccess.GetClubMemberLockDate(date, id);
+        //}
+
+        public bool UpdateClubMemberLockItemFlag(PersonModel person)
+        {
+            return this.memberAccess.UpdateClubMemberLockItemFlag(person);
         }
 
         /// <summary>

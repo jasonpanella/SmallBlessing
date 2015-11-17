@@ -318,10 +318,11 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             this.txtZip.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtZip.Location = new System.Drawing.Point(266, 180);
-            this.txtZip.MaxLength = 75;
+            this.txtZip.MaxLength = 5;
             this.txtZip.Name = "txtZip";
             this.txtZip.Size = new System.Drawing.Size(72, 21);
             this.txtZip.TabIndex = 9;
+            this.txtZip.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Zip_KeyPress);
             // 
             // label2
             // 

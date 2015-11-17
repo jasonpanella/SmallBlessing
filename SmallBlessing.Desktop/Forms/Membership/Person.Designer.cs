@@ -111,7 +111,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.tab.Location = new System.Drawing.Point(12, 12);
             this.tab.Name = "tab";
             this.tab.SelectedIndex = 0;
-            this.tab.Size = new System.Drawing.Size(735, 658);
+            this.tab.Size = new System.Drawing.Size(787, 658);
             this.tab.TabIndex = 0;
             this.tab.SelectedIndexChanged += new System.EventHandler(this.Tab_SelectedIndexChanged);
             // 
@@ -304,10 +304,12 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // 
             this.txtZip.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtZip.Location = new System.Drawing.Point(277, 182);
-            this.txtZip.MaxLength = 75;
+            this.txtZip.MaxLength = 5;
             this.txtZip.Name = "txtZip";
             this.txtZip.Size = new System.Drawing.Size(72, 21);
             this.txtZip.TabIndex = 109;
+            this.txtZip.TextChanged += new System.EventHandler(this.txtZip_TextChanged);
+            this.txtZip.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Zip_KeyPress);
             // 
             // label2
             // 
@@ -539,7 +541,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.tabSearchManage.Location = new System.Drawing.Point(4, 24);
             this.tabSearchManage.Name = "tabSearchManage";
             this.tabSearchManage.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSearchManage.Size = new System.Drawing.Size(727, 630);
+            this.tabSearchManage.Size = new System.Drawing.Size(779, 630);
             this.tabSearchManage.TabIndex = 1;
             this.tabSearchManage.Text = "Items";
             // 
@@ -563,7 +565,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.dataGridViewItems.MultiSelect = false;
             this.dataGridViewItems.Name = "dataGridViewItems";
             this.dataGridViewItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewItems.Size = new System.Drawing.Size(691, 158);
+            this.dataGridViewItems.Size = new System.Drawing.Size(735, 329);
             this.dataGridViewItems.TabIndex = 3;
             this.dataGridViewItems.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewItems_CellClick);
             this.dataGridViewItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewItems_CellContentClick);
@@ -649,7 +651,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(759, 715);
+            this.ClientSize = new System.Drawing.Size(811, 715);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.tab);
             this.Controls.Add(this.btnUpdate);

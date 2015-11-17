@@ -352,7 +352,7 @@ namespace SmallBlessing.Data.DataAccess
             return rowsAffected > 0;
         }
 
-        public int GetClubMemberVisits(int personID)
+        public int GetClubMemberVisits(int personID, string date)
         {
             //var rowsAffected = 0;
             var id = 0;
@@ -373,12 +373,54 @@ namespace SmallBlessing.Data.DataAccess
 
                             // Add the input parameters to the parameter collection
                             cmd.Parameters.AddWithValue("@PersonID", personID);
+                            cmd.Parameters.AddWithValue("@Date", date);
                             //rowsAffected = cmd.ExecuteNonQuery();
                             id = (int)cmd.ExecuteScalar();
                             var rowsAffected = cmd.ExecuteNonQuery();
                             //rowsAffected = 1;
                         }
                       
+                        ts.Complete();
+
+                    }
+                }
+            }
+            catch
+            {
+                //todo: add error handling
+
+            }
+            return id;
+        }
+
+        public int GetClubMemberVisitsInMonth(int personID, string date)
+        {
+            //var rowsAffected = 0;
+            var id = 0;
+            //SqlTransaction transaction;
+            try
+            {
+                using (TransactionScope ts = new TransactionScope())
+                {
+                    using (SqlConnection conn = new SqlConnection(ConnectionString))
+                    {
+                        conn.Open();
+
+                        using (SqlCommand cmd = new SqlCommand())
+                        {
+                            // Set the command object properties
+                            cmd.Connection = conn;
+                            cmd.CommandText = Scripts.SqlGetClubMemberVisitsInMonth;
+
+                            // Add the input parameters to the parameter collection
+                            cmd.Parameters.AddWithValue("@PersonID", personID);
+                            cmd.Parameters.AddWithValue("@Date", date);
+                            //rowsAffected = cmd.ExecuteNonQuery();
+                            id = (int)cmd.ExecuteScalar();
+                            var rowsAffected = cmd.ExecuteNonQuery();
+                            //rowsAffected = 1;
+                        }
+
                         ts.Complete();
 
                     }
@@ -460,7 +502,15 @@ namespace SmallBlessing.Data.DataAccess
                             cmd.Parameters.AddWithValue("@ID", person.PersonID);
                             cmd.Parameters.AddWithValue("@DateUpdated", person.DateUpdated);
                             cmd.Parameters.AddWithValue("@ProofGuardianFlag", person.ProofGuardianFlag);
-                            cmd.Parameters.AddWithValue("@LockItemDate", person.LockItemsDate);
+
+                            //SqlParameter planIndexParameter = new SqlParameter("@LockItemDate", SqlDbType.Date);
+                            //planIndexParameter.Value = (object)person.LockItemsDate ?? DBNull.Value;
+                            //cmd.Parameters.Add(planIndexParameter);
+
+                            cmd.Parameters.AddWithValue("@LockItemDate", (object)person.LockItemsDate ?? DBNull.Value);
+
+                            //cmd.Parameters.AddWithValue("@LockItemDate", person.LockItemsDate);
+                            cmd.Parameters.AddWithValue("@LockItemFlag", person.LockItemsFlag);
                             // Open the connection, execute the query and close the connection
                             //cmd.Connection.Open();
                             rowsAffected = cmd.ExecuteNonQuery();
@@ -540,6 +590,61 @@ namespace SmallBlessing.Data.DataAccess
             }
             catch
             { 
+
+            }
+            return rowsAffected > 0;
+        }
+
+        public bool UpdateClubMemberLockItemFlag(PersonModel person)
+        {
+            var rowsAffected = 0;
+            var memberID = person.PersonID;
+            try
+            {
+                using (TransactionScope ts = new TransactionScope())
+                {
+                    using (SqlConnection conn = new SqlConnection(ConnectionString))
+                    {
+                        conn.Open();
+                        using (SqlCommand cmd = new SqlCommand())
+                        {
+                            // Set the command object properties
+                            cmd.Connection = conn;
+                            cmd.CommandText = Scripts.sqlUpdateClubMember;
+
+                            // Add the input parameters to the parameter collection
+                            cmd.Parameters.AddWithValue("@FirstName", person.FirstName);
+                            cmd.Parameters.AddWithValue("@LastName", person.LastName);
+                            cmd.Parameters.AddWithValue("@MiddleInitial", person.MiddleIntial);
+                            cmd.Parameters.AddWithValue("@Address", person.Address);
+                            cmd.Parameters.AddWithValue("@Phone", person.PhoneNumber);
+                            cmd.Parameters.AddWithValue("@ChurchHomeFlag", person.ChurchHome);
+                            cmd.Parameters.AddWithValue("@ChurchHomeName", person.ChurchName);
+                            cmd.Parameters.AddWithValue("@Opinion", person.Opinion);
+                            cmd.Parameters.AddWithValue("@BirthDate", person.DateOfBirth);
+                            cmd.Parameters.AddWithValue("@PhoneContactFlag", person.LeaveMessage);
+                            cmd.Parameters.AddWithValue("@City", person.City);
+                            cmd.Parameters.AddWithValue("@State", person.State);
+                            cmd.Parameters.AddWithValue("@Zip", person.Zip);
+                            cmd.Parameters.AddWithValue("@ID", person.PersonID);
+                            cmd.Parameters.AddWithValue("@DateUpdated", person.DateUpdated);
+                            cmd.Parameters.AddWithValue("@ProofGuardianFlag", person.ProofGuardianFlag);
+                            cmd.Parameters.AddWithValue("@LockItemDate", person.LockItemsDate);
+                            cmd.Parameters.AddWithValue("@LockItemFlag", person.LockItemsFlag);
+                            // Open the connection, execute the query and close the connection
+                            //cmd.Connection.Open();
+                            rowsAffected = cmd.ExecuteNonQuery();
+                            //cmd.Connection.Close();
+
+                        }
+                                              
+                        rowsAffected = 1;
+                        ts.Complete();
+                    }
+                }
+            }
+            catch
+            {
 
             }
             return rowsAffected > 0;

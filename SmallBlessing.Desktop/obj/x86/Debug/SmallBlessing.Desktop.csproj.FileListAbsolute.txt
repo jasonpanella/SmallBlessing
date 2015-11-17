@@ -38,3 +38,7 @@ C:\Users\jpanella\Desktop\SmallBlessing\SmallBlessing\SmallBlessing.Desktop\obj\
 C:\Users\jpanella\Desktop\SmallBlessing\SmallBlessing\SmallBlessing.Desktop\obj\x86\Debug\SmallBlessing.Desktop.Properties.Resources.resources
 C:\Users\jpanella\Desktop\SmallBlessing\SmallBlessing\SmallBlessing.Desktop\obj\x86\Debug\SmallBlessing.Desktop.csproj.GenerateResource.Cache
 C:\Users\jpanella\Desktop\SmallBlessing\SmallBlessing\SmallBlessing.Desktop\obj\x86\Debug\SmallBlessing.Desktop.Forms.Membership.Person.resources
+C:\Users\jpanella\Desktop\SmallBlessing\SmallBlessing\SmallBlessing.Desktop\bin\Debug\SmallBlessing.Desktop.exe.manifest
+C:\Users\jpanella\Desktop\SmallBlessing\SmallBlessing\SmallBlessing.Desktop\bin\Debug\SmallBlessing.Desktop.application
+C:\Users\jpanella\Desktop\SmallBlessing\SmallBlessing\SmallBlessing.Desktop\obj\x86\Debug\SmallBlessing.Desktop.exe.manifest
+C:\Users\jpanella\Desktop\SmallBlessing\SmallBlessing\SmallBlessing.Desktop\obj\x86\Debug\SmallBlessing.Desktop.application

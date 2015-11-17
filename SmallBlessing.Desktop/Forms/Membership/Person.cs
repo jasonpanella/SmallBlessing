@@ -30,7 +30,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
         /// Instance of DataGridViewPrinter
         /// </summary>
         private DataGridViewPrinter dataGridViewPrinter;
-        
+
         /// <summary>
         /// Interface of ClubMemberService
         /// </summary>
@@ -48,23 +48,56 @@ namespace SmallBlessing.Desktop.Forms.Membership
 
         private DateTime lockItemDate;
 
+        private bool lockItemFlag;
+
         Manage _manage;
 
-        
+
 
         /// <summary>
         /// Initializes a new instance of the Manage class
         /// </summary>
-        public Person(PersonModel personObject, Manage mainForm)
+        public Person(int _memberId, Manage mainForm)
         {
             _manage = mainForm;
+            memberId = _memberId;
             this.InitializeComponent();
             this.InitializeResourceString();
             this.InitializeDropDownList();
             this.InitilizeDataGridViewStyle();
-            this.clubMemberService = new ClubMemberService();            
+            this.clubMemberService = new ClubMemberService();
             this.ResetRegistration();
             this.ResetSearch();
+
+
+            PersonModel personObject = new PersonModel();
+            try
+            {
+                DataRow dataRow = this.clubMemberService.GetFullClubMemberById(memberId);
+                personObject.FirstName = dataRow["FirstName"].ToString();
+                personObject.MiddleIntial = dataRow["MI"].ToString();
+                personObject.LastName = dataRow["LastName"].ToString();
+                personObject.Address = dataRow["Address"].ToString();
+                personObject.City = dataRow["City"].ToString();
+                personObject.State = dataRow["State"].ToString();
+                personObject.Zip = dataRow["Zip"].ToString();
+                personObject.PhoneNumber = dataRow["Phone"].ToString();
+                personObject.LeaveMessage = Convert.ToBoolean(dataRow["PhoneContactFlag"].ToString());
+                personObject.ChurchName = dataRow["ChurchHomeName"].ToString();
+                personObject.DateOfBirth = Convert.ToDateTime(dataRow["BirthDate"]);
+                personObject.Opinion = dataRow["Opinion"].ToString();
+                personObject.ChurchHome = Convert.ToBoolean(dataRow["ChurchHomeFlag"].ToString());
+                personObject.ChurchName = dataRow["ChurchHomeName"].ToString();
+                personObject.PersonID = Convert.ToInt32(dataRow["PersonID"].ToString());
+                personObject.DateUpdated = Convert.ToDateTime(dataRow["DateUpdated"]);
+                personObject.ProofGuardianFlag = Convert.ToBoolean(dataRow["ProofGuardianFlag"].ToString());
+                personObject.LockItemsDate = dataRow["LockItemDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dataRow["LockItemDate"]);
+                personObject.LockItemsFlag = Convert.ToBoolean(dataRow["LockItemFlag"].ToString());
+            }
+            catch (Exception ex)
+            {
+                this.ShowErrorMessage(ex);
+            }
 
             memberId = personObject.PersonID;
             txtFirstName.Text = personObject.FirstName.ToString();
@@ -76,7 +109,41 @@ namespace SmallBlessing.Desktop.Forms.Membership
             txtCity.Text = personObject.City.ToString();
             txtState.Text = personObject.State.ToString();
             txtZip.Text = personObject.Zip.ToString();
-            
+
+
+            lockItemFlag = personObject.LockItemsFlag;
+            if (!string.IsNullOrEmpty(personObject.LockItemsDate.ToString()))
+            {
+                lockItemDate = Convert.ToDateTime(personObject.LockItemsDate.ToString());
+
+                var numVisits = this.clubMemberService.GetClubMemberVisits(memberId, lockItemDate.ToShortDateString());
+                if (numVisits >= 6)
+                {
+                    lockItemFlag = true;
+                }
+
+                if (!lockItemFlag)
+                {
+                    var numVisitsInMonth = this.clubMemberService.GetClubMemberVisitsInMonth(memberId, lockItemDate.ToShortDateString());
+                    if (numVisitsInMonth > 0)
+                    {
+                        lockItemFlag = true;
+                    }
+                    else { lockItemFlag = false; }
+                }
+
+                if (numVisits == 0)
+                    lockItemDate = DateTime.Today;
+
+
+
+                lblNumVisits.Text = numVisits.ToString();
+            }
+            else
+            {
+                lblNumVisits.Text = "0";
+            }
+
             rdoChurchHome2.Checked = true;
             if (personObject.ChurchHome)
             {
@@ -86,7 +153,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             txtChurchName.Text = personObject.ChurchName.ToString();
             txtOpinion.Text = personObject.Opinion.ToString() == null ? string.Empty : personObject.Opinion.ToString();
             txtContactNumber.Text = personObject.PhoneNumber.ToString();
-            
+
             rdoLeaveMessage2.Checked = true;
             if (personObject.LeaveMessage)
             {
@@ -107,13 +174,18 @@ namespace SmallBlessing.Desktop.Forms.Membership
 
             lblLastVisit.Text = personObject.DateUpdated.ToString();
 
-            var numVisits = this.clubMemberService.GetClubMemberVisits(memberId);
-            lblNumVisits.Text = numVisits.ToString();
-
             _datePicker.Visible = false;
             _datePicker.CustomFormat = "dd/MM/yyyy";
             _datePicker.ValueChanged += _datePicker_ValueChanged;
 
+            //update lockItemFlag
+            //if (lockItemFlag)
+            //{
+            //personObject.LockItemsFlag = lockItemFlag;
+            //update flag on database
+            this.clubMemberService.UpdateClubMemberLockItemFlag(personObject);
+            //}
+            groupBox3.Hide();
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.btnClose_Click);
         }
 
@@ -123,7 +195,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
         private void InitializeResourceString()
         {
             // Registeration
-            lblDateOfBirth.Text = Resources.Registration_DateOfBirth_Label_Text;        
+            lblDateOfBirth.Text = Resources.Registration_DateOfBirth_Label_Text;
         }
 
         private void dataGridViewItems_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -225,7 +297,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
         /// </summary>
         private void InitializeDropDownList()
         {
-              
+
 
             //cmbSearchOccupation.DataSource = Enum.GetValues(typeof(Occupation));
             //cmbSearchMaritalStatus.DataSource = Enum.GetValues(typeof(MaritalStatus));
@@ -236,7 +308,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
         /// Resets search criteria
         /// </summary>
         private void ResetSearch()
-        {            
+        {
             //cmbSearchMaritalStatus.SelectedIndex = -1;
             //cmbSearchOccupation.SelectedIndex = -1;
             //cmbOperand.SelectedIndex = 0;
@@ -251,7 +323,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             txtMiddleInitial.Text = string.Empty;
             txtLastName.Text = string.Empty;
             //txtSalary.Text = string.Empty;
-            
+
         }
 
         /// <summary>
@@ -282,7 +354,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
         /// </summary>
         /// <returns>true or false</returns>
         private bool ValidateRegistration()
-        {            
+        {
             this.errorMessage = string.Empty;
 
             if (txtFirstName.Text.Trim() == string.Empty)
@@ -290,7 +362,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
                 this.AddErrorMessage(Resources.Registration_FirstName_Required_Text);
             }
 
-            
+
 
             return this.errorMessage != string.Empty ? false : true;
         }
@@ -348,8 +420,8 @@ namespace SmallBlessing.Desktop.Forms.Membership
             MessageBox.Show(
                 ex.Message,
                 //Resources.System_Error_Message, 
-                Resources.System_Error_Message_Title, 
-                MessageBoxButtons.OK, 
+                Resources.System_Error_Message_Title,
+                MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
         }
 
@@ -368,7 +440,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             dataGridViewItems.AlternatingRowsDefaultCellStyle.BackColor = SystemColors.Info;
             dataGridViewItems.CellBorderStyle = DataGridViewCellBorderStyle.Single;
             dataGridViewItems.GridColor = SystemColors.ControlDarkDark;
-            
+
         }
 
         private void LoadDataGridItemView(DataTable data)
@@ -436,7 +508,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             return true;
         }
 
-        
+
 
         /// <summary>
         /// Key press Event to accept only numeric value
@@ -488,10 +560,24 @@ namespace SmallBlessing.Desktop.Forms.Membership
                     //check if 6 visits in the current year or previous month////
                     //var numVisits = this.clubMemberService.GetClubMemberVisits(memberId);
                     //lblNumVisits.Text = numVisits.ToString();
+                    if (lockItemFlag)
+                    {
+                        //this.dataGridViewItems.AllowUserToAddRows = false;
+                        //this.dataGridViewItems.AllowUserToDeleteRows = false;                        
+                        //this.dataGridViewItems.ReadOnly = true;
 
-
+                        MessageBox.Show(
+                        "User has already been here in the past month or surpassed # of visits within an alloted year.",
+                        Resources.System_Error_Message_Title,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    }
+                    //DataGridViewColumn column = dataGridViewItems.Columns[3];
+                    //column.Width = 30;
+                    //DataGridViewColumn column = dataGridViewItems.Columns[3];
+                    //column.Width = 70;
                     //this.dataGridViewItems.Columns["LockItemsDate"].Visible = false;
-                                    
+
                 }
             }
             catch (Exception ex)
@@ -542,7 +628,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             catch (Exception ex)
             {
                 this.ShowErrorMessage(ex);
-            }            
+            }
         }
 
 
@@ -584,7 +670,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             {
                 this.ShowErrorMessage(ex);
             }
-        }     
+        }
         /// <summary>
         /// Click event to handle the refresh
         /// </summary>
@@ -596,12 +682,12 @@ namespace SmallBlessing.Desktop.Forms.Membership
             {
                 this.ResetSearch();
                 DataTable data = this.clubMemberService.GetAllClubMembers();
-                this.LoadDataGridView(data); 
+                this.LoadDataGridView(data);
             }
             catch (Exception ex)
             {
                 this.ShowErrorMessage(ex);
-            }            
+            }
         }
 
         /// <summary>
@@ -643,7 +729,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             catch (Exception ex)
             {
                 this.ShowErrorMessage(ex);
-            }           
+            }
         }
 
         /// <summary>
@@ -665,78 +751,15 @@ namespace SmallBlessing.Desktop.Forms.Membership
             catch (Exception ex)
             {
                 this.ShowErrorMessage(ex);
-            }            
-        }       
+            }
+        }
 
         /// <summary>
         /// Click event to handle the export to excel
         /// </summary>
         /// <param name="sender">Sender object</param>
         /// <param name="e">event data</param>
-        private void Export_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var table = (DataTable)dataGridViewItems.DataSource;
-
-                Microsoft.Office.Interop.Excel.ApplicationClass excel
-                    = new Microsoft.Office.Interop.Excel.ApplicationClass();
-
-                excel.Application.Workbooks.Add(true);
-
-                int columnIndex = 0;
-
-                foreach (DataColumn col in table.Columns)
-                {
-                    columnIndex++;
-                    excel.Cells[1, columnIndex] = col.ColumnName;
-                }
-
-                int rowIndex = 0;
-
-                foreach (DataRow row in table.Rows)
-                {
-                    rowIndex++;
-                    columnIndex = 0;
-                    foreach (DataColumn col in table.Columns)
-                    {
-                        columnIndex++;
-                        if (columnIndex == 4 || columnIndex == 5 || columnIndex == 6)
-                        {
-                            if (columnIndex == 4)
-                            {
-                                excel.Cells[rowIndex + 1, columnIndex]
-                                    = Enum.GetName(typeof(Occupation), row[col.ColumnName]);
-                            }
-
-                            if (columnIndex == 5)
-                            {
-                                excel.Cells[rowIndex + 1, columnIndex]
-                                    = Enum.GetName(typeof(MaritalStatus), row[col.ColumnName]);
-                            }
-
-                            if (columnIndex == 6)
-                            {
-                                excel.Cells[rowIndex + 1, columnIndex]
-                                    = Enum.GetName(typeof(HealthStatus), row[col.ColumnName]);
-                            }
-                        }
-                        else
-                        {
-                            excel.Cells[rowIndex + 1, columnIndex] = row[col.ColumnName].ToString();
-                        }
-                    }
-                }
-
-                excel.Visible = true;
-                Microsoft.Office.Interop.Excel.Worksheet worksheet = (Microsoft.Office.Interop.Excel.Worksheet)excel.ActiveSheet;
-                worksheet.Activate(); 
-            }
-            catch (Exception ex)
-            {
-                this.ShowErrorMessage(ex);
-            }                          
-        }
+   
 
         private void dataGridViewMembers_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -749,10 +772,10 @@ namespace SmallBlessing.Desktop.Forms.Membership
             }
             catch (Exception ex)
             {
-                
+
             }
         }
-       
+
 
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -779,7 +802,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
                     {
                         if (row.IsNewRow) continue;
                         DependentModel dependentModel = new DependentModel()
-                        {                            
+                        {
                             NameOfChild = row.Cells["Name of Child"].Value.ToString(),
                             BirthDate = Convert.ToDateTime(_datePicker.Value.ToShortDateString()),
                             ChildLivesWith = row.Cells["LivesWith"].Value.ToString(),
@@ -802,26 +825,45 @@ namespace SmallBlessing.Desktop.Forms.Membership
                         //DateTime lockDate = Convert.ToDateTime(_datePicker.Value.ToShortDateString());
                         //if (!(string.IsNullOrEmpty(row.Cells["LockItemsDate"].Value.ToString())))
                         //lockDate = Convert.ToDateTime(row.Cells["LockItemsDate"].Value.ToString());
-                        
+
                         ItemModel itemModel = new ItemModel()
                         {
                             Description = row.Cells["Description"].Value.ToString(),
+                            //Date = Convert.ToDateTime(row.Cells["Date"].Value.ToString()),
                             Date = Convert.ToDateTime(_datePicker.Value.ToShortDateString()),
                             Comments = row.Cells["Comments"].Value.ToString(),
                             Initials = row.Cells["Initials"].Value.ToString(),
-                            //LockItemsDate = Convert.ToDateTime(_datePicker.Value.ToShortDateString()),//Convert.ToDateTime(row.Cells["LockItemsDate"].Value.ToString()),
-                            PersonID = this.memberId
-                            //ItemID = Convert.ToInt32(row.Cells["ItemID"].Value.ToString())
+                            PersonID = this.memberId                            
                         };
                         itemList.Add(itemModel);
                     }
 
-                    
-
-
                     string phone = string.Empty;
                     if (!(txtContactNumber.Text == "(   )    -"))
                         phone = txtContactNumber.Text;
+
+                    //DateTime? start = (txtStartDate.Text == DateTime.MinValue.ToString()) ? null : (DateTime?)txtStartDate.Text;
+                    //DBNull.Value
+                    // <Nullable>DateTime start = lockItemDate == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(lockItemDate);
+
+                    //DateTime? start = lockItemDate ?? (DateTime?)DBNull.Value;                   
+                    DataRow dataRow = this.clubMemberService.GetFullClubMemberById(memberId);
+                    //Person personObject = new Person();
+                    DateTime? dt = dataRow["LockItemDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dataRow["LockItemDate"]);
+                    //personObject.LockItemsFlag = Convert.ToBoolean(dataRow["LockItemFlag"].ToString());
+
+                    if ((!dt.HasValue) && (itemList.Count > 0))
+                        dt = DateTime.Today;
+
+                    //if (dt.HasValue)
+                    //{
+                    //    var date = Convert.ToDateTime(dataRow["LockItemDate"]);
+                    //    //if it has been more than a year reset date
+                    //    //bool resetLockDate = this.clubMemberService.GetClubMemberLockDate(dt, memberId);
+                    //    var matchFound = (date - DateTime.Now).TotalDays > 365;
+                    //    dt = DateTime.Today;
+                    //}
+                    //if (!dt.HasValue)
 
                     PersonModel clubMemberModel = new PersonModel()
                     {
@@ -841,7 +883,8 @@ namespace SmallBlessing.Desktop.Forms.Membership
                         Zip = txtZip.Text.Trim(),
                         DateUpdated = DateTime.Now,
                         ProofGuardianFlag = bool.Parse(rdoGuardian1.Checked.ToString()),
-                        LockItemsDate = DateTime.Now,
+                        LockItemsDate = dt,//lockItemDate,
+                        LockItemsFlag = lockItemFlag,
                         DependentModelList = depList,
                         ItemModelList = itemList
                     };
@@ -891,10 +934,10 @@ namespace SmallBlessing.Desktop.Forms.Membership
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                 }
-                
+
             }
             catch (Exception ex)
-            {                
+            {
                 this.ShowErrorMessage(ex);
             }
         }
@@ -924,7 +967,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             catch (Exception ex)
             {
                 this.ShowErrorMessage(ex);
-            }            
+            }
         }
 
         private void dataGridViewItems_SelectionChanged(object sender, EventArgs e)
@@ -1134,12 +1177,27 @@ namespace SmallBlessing.Desktop.Forms.Membership
 
         }
 
+        private void txtZip_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Zip_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            base.OnKeyPress(e);
+            // Check if the pressed character was a backspace or numeric.
+            if (e.KeyChar != (char)8 && !char.IsNumber(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
 
         //private void btnUpdate_Click(object sender, EventArgs e)
         //{
 
         //}
 
-                         
+
     }
 }

@@ -36,7 +36,11 @@ namespace SmallBlessing.Data.DataAccess
 
         DataTable GetClubMemberItemsById(int PersonID);
 
-        int GetClubMemberVisits(int PersonID);
+        int GetClubMemberVisits(int PersonID, string date);
+
+        int GetClubMemberVisitsInMonth(int PersonID, string date);
+
+        bool UpdateClubMemberLockItemFlag(PersonModel person);
 
         DataTable GetDependents(int PersonID);
         /// <summary>

@@ -399,6 +399,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
                         Zip = txtZip.Text.Trim(),
                         ExportFlag = 0,
                         ProofGuardianFlag = bool.Parse(rdoGuardian1.Checked.ToString()),
+                        LockItemsFlag = false,
                         DependentModelList = depList
                     };
 
@@ -760,7 +761,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
         private void dataGridViewMembers_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             int currentRow = dataGridViewMembers.SelectedCells[0].RowIndex;
-            MessageBox.Show("cell content click");
+            //MessageBox.Show("cell content click");
             try
             {
                 string clubMemberId = dataGridViewMembers[0, currentRow].Value.ToString();
@@ -779,36 +780,36 @@ namespace SmallBlessing.Desktop.Forms.Membership
         /// <param name="e">event args</param>
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            PersonModel p = new PersonModel();
-            try
-            {
-                DataRow dataRow = this.clubMemberService.GetFullClubMemberById(memberId);
-                p.FirstName = dataRow["FirstName"].ToString();
-                p.MiddleIntial = dataRow["MI"].ToString();
-                p.LastName = dataRow["LastName"].ToString();
-                p.Address = dataRow["Address"].ToString();
-                p.City = dataRow["City"].ToString();
-                p.State = dataRow["State"].ToString();
-                p.Zip = dataRow["Zip"].ToString();
-                p.PhoneNumber = dataRow["Phone"].ToString();
-                p.LeaveMessage = Convert.ToBoolean(dataRow["PhoneContactFlag"].ToString());
-                p.ChurchName = dataRow["ChurchHomeName"].ToString();
-                p.DateOfBirth = Convert.ToDateTime(dataRow["BirthDate"]);
-                p.Opinion = dataRow["Opinion"].ToString();
-                p.ChurchHome = Convert.ToBoolean(dataRow["ChurchHomeFlag"].ToString());
-                p.ChurchName = dataRow["ChurchHomeName"].ToString();
-                p.PersonID = Convert.ToInt32(dataRow["PersonID"].ToString());
-                p.DateUpdated = Convert.ToDateTime(dataRow["DateUpdated"]);
-                p.ProofGuardianFlag = Convert.ToBoolean(dataRow["ProofGuardianFlag"].ToString());
-                //p.LockItemsDate = Convert.ToDateTime(dataRow["LockItemDate"]);
-                p.LockItemsDate = dataRow["LockItemDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dataRow["LockItemDate"]); 
-            }
-            catch (Exception ex)
-            {
-                this.ShowErrorMessage(ex);
-            }
+            //PersonModel p = new PersonModel();
+            //try
+            //{
+            //    DataRow dataRow = this.clubMemberService.GetFullClubMemberById(memberId);
+            //    p.FirstName = dataRow["FirstName"].ToString();
+            //    p.MiddleIntial = dataRow["MI"].ToString();
+            //    p.LastName = dataRow["LastName"].ToString();
+            //    p.Address = dataRow["Address"].ToString();
+            //    p.City = dataRow["City"].ToString();
+            //    p.State = dataRow["State"].ToString();
+            //    p.Zip = dataRow["Zip"].ToString();
+            //    p.PhoneNumber = dataRow["Phone"].ToString();
+            //    p.LeaveMessage = Convert.ToBoolean(dataRow["PhoneContactFlag"].ToString());
+            //    p.ChurchName = dataRow["ChurchHomeName"].ToString();
+            //    p.DateOfBirth = Convert.ToDateTime(dataRow["BirthDate"]);
+            //    p.Opinion = dataRow["Opinion"].ToString();
+            //    p.ChurchHome = Convert.ToBoolean(dataRow["ChurchHomeFlag"].ToString());
+            //    p.ChurchName = dataRow["ChurchHomeName"].ToString();
+            //    p.PersonID = Convert.ToInt32(dataRow["PersonID"].ToString());
+            //    p.DateUpdated = Convert.ToDateTime(dataRow["DateUpdated"]);
+            //    p.ProofGuardianFlag = Convert.ToBoolean(dataRow["ProofGuardianFlag"].ToString());
+            //    p.LockItemsDate = dataRow["LockItemDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dataRow["LockItemDate"]);
+            //    p.LockItemsFlag = Convert.ToBoolean(dataRow["LockItemFlag"].ToString());
+            //}
+            //catch (Exception ex)
+            //{
+            //    this.ShowErrorMessage(ex);
+            //}
 
-            var frmPerson = new Person(p, this);
+            var frmPerson = new Person(this.memberId, this);
             frmPerson.Show();
 
         }
@@ -1071,6 +1072,16 @@ namespace SmallBlessing.Desktop.Forms.Membership
             }
 
 
+        }
+
+        private void Zip_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            base.OnKeyPress(e);
+            // Check if the pressed character was a backspace or numeric.
+            if (e.KeyChar != (char)8 && !char.IsNumber(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }
