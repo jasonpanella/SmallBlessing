@@ -99,7 +99,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.PrintReport = new System.Drawing.Printing.PrintDocument();
             this.dependentsTableAdapter = new SmallBlessing.Desktop.SmallBlessingsDataSetTableAdapters.DependentsTableAdapter();
             this.smallBlessingsDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.smallBlessingsDataSet1 = new SmallBlessing.Desktop.SmallBlessingsDataSet1();
+            this.smallBlessingsDataSet1 = new SmallBlessing.Desktop.SmallBlessingsDataSet();
             this.dependentsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.dependentsTableAdapter1 = new SmallBlessing.Desktop.SmallBlessingsDataSet1TableAdapters.DependentsTableAdapter();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -516,7 +516,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             this.dtTodayDate.Name = "dtTodayDate";
             this.dtTodayDate.Size = new System.Drawing.Size(152, 21);
             this.dtTodayDate.TabIndex = 24;
-            this.dtTodayDate.Value = new System.DateTime(2015, 11, 12, 0, 0, 0, 0);
+            this.dtTodayDate.Value = new System.DateTime(2015, 12, 2, 0, 0, 0, 0);
             this.dtTodayDate.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // label6
@@ -932,7 +932,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtState;
         private System.Windows.Forms.BindingSource smallBlessingsDataSetBindingSource;
-        private SmallBlessingsDataSet1 smallBlessingsDataSet1;
+        private SmallBlessingsDataSet smallBlessingsDataSet1;
         private System.Windows.Forms.BindingSource dependentsBindingSource1;
         private SmallBlessingsDataSet1TableAdapters.DependentsTableAdapter dependentsTableAdapter1;
         private System.Windows.Forms.DataGridViewTextBoxColumn NameofChild;

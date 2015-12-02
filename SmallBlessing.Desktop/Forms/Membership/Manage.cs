@@ -292,7 +292,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
             // Data grid view column setting            
             dataGridViewMembers.DataSource = data;
             dataGridViewMembers.DataMember = data.TableName;
-            dataGridViewMembers.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            dataGridViewMembers.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
             this.dataGridViewMembers.Columns["PersonID"].Visible = false;
         }
 

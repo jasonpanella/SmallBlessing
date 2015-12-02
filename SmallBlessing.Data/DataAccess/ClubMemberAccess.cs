@@ -36,12 +36,10 @@ namespace SmallBlessing.Data.DataAccess
             {
                 using (SqlCommand cmd = new SqlCommand(Scripts.SqlGetAllClubMembers, cnn))
                 {
-
                     // Assign the SQL to the command object
                     cmd.CommandType = CommandType.Text;
 
                     // Fill the datatable from adapter
-
                     xDA.SelectCommand = cmd;
                     xDA.SelectCommand.Connection = cnn;
                     xDA.Fill(dataTable);
@@ -352,7 +350,8 @@ namespace SmallBlessing.Data.DataAccess
             return rowsAffected > 0;
         }
 
-        public int GetClubMemberVisits(int personID, string date)
+        public int GetClubMemberVisits(int personID)
+        //public int GetClubMemberVisits(int personID, string date)
         {
             //var rowsAffected = 0;
             var id = 0;
@@ -373,7 +372,7 @@ namespace SmallBlessing.Data.DataAccess
 
                             // Add the input parameters to the parameter collection
                             cmd.Parameters.AddWithValue("@PersonID", personID);
-                            cmd.Parameters.AddWithValue("@Date", date);
+                            //cmd.Parameters.AddWithValue("@Date", date);
                             //rowsAffected = cmd.ExecuteNonQuery();
                             id = (int)cmd.ExecuteScalar();
                             var rowsAffected = cmd.ExecuteNonQuery();

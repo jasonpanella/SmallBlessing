@@ -109,10 +109,15 @@ namespace SmallBlessing.Data.BusinessService
             return this.memberAccess.AddDependent(dependent);
         }
 
-        public int GetClubMemberVisits(int Id, string date)
+        //public int GetClubMemberVisits(int Id, string date)
+        //{
+        //    return this.memberAccess.GetClubMemberVisits(Id, date);
+        //}
+
+        public int GetClubMemberVisits(int Id)
         {
-            return this.memberAccess.GetClubMemberVisits(Id, date);
-        }        
+            return this.memberAccess.GetClubMemberVisits(Id);
+        }
 
         public int GetClubMemberVisitsInMonth(int Id, string date)
         {

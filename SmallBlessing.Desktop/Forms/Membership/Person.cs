@@ -91,7 +91,8 @@ namespace SmallBlessing.Desktop.Forms.Membership
                 personObject.PersonID = Convert.ToInt32(dataRow["PersonID"].ToString());
                 personObject.DateUpdated = Convert.ToDateTime(dataRow["DateUpdated"]);
                 personObject.ProofGuardianFlag = Convert.ToBoolean(dataRow["ProofGuardianFlag"].ToString());
-                personObject.LockItemsDate = dataRow["LockItemDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dataRow["LockItemDate"]);
+                //personObject.LockItemsDate = dataRow["LockItemDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dataRow["LockItemDate"]);
+                personObject.LockItemsDate = dataRow["MaxDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dataRow["MaxDate"]);
                 personObject.LockItemsFlag = Convert.ToBoolean(dataRow["LockItemFlag"].ToString());
             }
             catch (Exception ex)
@@ -110,39 +111,74 @@ namespace SmallBlessing.Desktop.Forms.Membership
             txtState.Text = personObject.State.ToString();
             txtZip.Text = personObject.Zip.ToString();
 
+            //grab first and last day of previous month
+            DateTime today = DateTime.Now;
 
-            lockItemFlag = personObject.LockItemsFlag;
-            if (!string.IsNullOrEmpty(personObject.LockItemsDate.ToString()))
+            int prevMonth = today.AddMonths(-1).Month;
+            int year = today.AddMonths(-1).Year;
+            int daysInPrevMonth = DateTime.DaysInMonth(year, prevMonth);
+            DateTime firstDayPrevMonth = new DateTime(year, prevMonth, 1);
+            DateTime lastDayPrevMonth = new DateTime(year, prevMonth, daysInPrevMonth);
+            
+
+            //is maxdate month in today month
+            if (personObject.LockItemsDate.HasValue)
             {
                 lockItemDate = Convert.ToDateTime(personObject.LockItemsDate.ToString());
 
-                var numVisits = this.clubMemberService.GetClubMemberVisits(memberId, lockItemDate.ToShortDateString());
+                if ((lockItemDate.Month == DateTime.Now.Month) &&
+                    (lockItemDate.Year == DateTime.Now.Year))
+                {
+                    //  Console.WriteLine("{0} {1}", firstDayPrevMonth.ToShortDateString(),
+                    //lastDayPrevMonth.ToShortDateString());
+                    lockItemFlag = true;
+                }
+                
+                //var numVisits = this.clubMemberService.GetClubMemberVisits(memberId, lockItemDate.ToShortDateString());
+                var numVisits = this.clubMemberService.GetClubMemberVisits(memberId);
+
                 if (numVisits >= 6)
                 {
                     lockItemFlag = true;
                 }
-
-                if (!lockItemFlag)
-                {
-                    var numVisitsInMonth = this.clubMemberService.GetClubMemberVisitsInMonth(memberId, lockItemDate.ToShortDateString());
-                    if (numVisitsInMonth > 0)
-                    {
-                        lockItemFlag = true;
-                    }
-                    else { lockItemFlag = false; }
-                }
-
-                if (numVisits == 0)
-                    lockItemDate = DateTime.Today;
-
-
-
-                lblNumVisits.Text = numVisits.ToString();
             }
-            else
-            {
-                lblNumVisits.Text = "0";
-            }
+            
+
+            
+
+
+            //lockItemFlag = personObject.LockItemsFlag;
+            //if (!string.IsNullOrEmpty(personObject.LockItemsDate.ToString()))
+            //{
+            //    lockItemDate = Convert.ToDateTime(personObject.LockItemsDate.ToString());
+
+            //    //var numVisits = this.clubMemberService.GetClubMemberVisits(memberId, lockItemDate.ToShortDateString());
+            //    if (numVisits >= 6)
+            //    {
+            //        lockItemFlag = true;
+            //    }
+
+            //    if (!lockItemFlag)
+            //    {
+            //        var numVisitsInMonth = this.clubMemberService.GetClubMemberVisitsInMonth(memberId, lockItemDate.ToShortDateString());
+            //        if (numVisitsInMonth > 0)
+            //        {
+            //            lockItemFlag = true;
+            //        }
+            //        else { lockItemFlag = false; }
+            //    }
+
+            //    if (numVisits == 0)
+            //        lockItemDate = DateTime.Today;
+
+
+
+            //    lblNumVisits.Text = numVisits.ToString();
+            //}
+            //else
+            //{
+            //    lblNumVisits.Text = "0";
+            //}
 
             rdoChurchHome2.Checked = true;
             if (personObject.ChurchHome)
@@ -444,16 +480,10 @@ namespace SmallBlessing.Desktop.Forms.Membership
         }
 
         private void LoadDataGridItemView(DataTable data)
-        {
-            // Data grid view column setting            
-            //dataGridViewMembers.DataSource = data;
-            //dataGridViewMembers.DataMember = data.TableName;
-            //dataGridViewMembers.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-
+        {            
             dataGridViewItems.DataSource = data;
             dataGridViewItems.DataMember = data.TableName;
-            dataGridViewItems.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-
+            dataGridViewItems.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
             this.dataGridViewItems.Columns["ItemId"].Visible = false;
         }
 
@@ -554,7 +584,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
                 if (tab.SelectedIndex == 1)
                 {
                     DataTable data = this.clubMemberService.GetClubMemberItemsById(this.memberId);
-                    this.InitializeUpdate();
+                    this.InitializeUpdate();                    
                     this.LoadDataGridItemView(data);
 
                     //check if 6 visits in the current year or previous month////
@@ -759,7 +789,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
         /// </summary>
         /// <param name="sender">Sender object</param>
         /// <param name="e">event data</param>
-   
+
 
         private void dataGridViewMembers_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -833,7 +863,7 @@ namespace SmallBlessing.Desktop.Forms.Membership
                             Date = Convert.ToDateTime(_datePicker.Value.ToShortDateString()),
                             Comments = row.Cells["Comments"].Value.ToString(),
                             Initials = row.Cells["Initials"].Value.ToString(),
-                            PersonID = this.memberId                            
+                            PersonID = this.memberId
                         };
                         itemList.Add(itemModel);
                     }

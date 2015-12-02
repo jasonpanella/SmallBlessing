@@ -36,7 +36,8 @@ namespace SmallBlessing.Data.DataAccess
 
         DataTable GetClubMemberItemsById(int PersonID);
 
-        int GetClubMemberVisits(int PersonID, string date);
+        //int GetClubMemberVisits(int PersonID, string date);
+        int GetClubMemberVisits(int PersonID);
 
         int GetClubMemberVisitsInMonth(int PersonID, string date);
 
