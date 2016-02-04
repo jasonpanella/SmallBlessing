@@ -1,0 +1,14 @@
+C:\Users\jpanella\Desktop\John.SocialClub\John.SocialClub\SmallBlessings.Database\bin\Debug\SmallBlessings.Database.dacpac
+C:\Users\jpanella\Desktop\John.SocialClub\John.SocialClub\SmallBlessings.Database\bin\Debug\SmallBlessings.Database.dll
+C:\Users\jpanella\Desktop\John.SocialClub\John.SocialClub\SmallBlessings.Database\bin\Debug\SmallBlessings.Database.pdb
+C:\Users\jpanella\Desktop\John.SocialClub\John.SocialClub\SmallBlessings.Database\obj\Debug\SmallBlessings.Database.dll
+C:\Users\jpanella\Desktop\John.SocialClub\John.SocialClub\SmallBlessings.Database\obj\Debug\SmallBlessings.Database.pdb
+C:\Users\jpanella\Desktop\John.SocialClub\John.SocialClub\SmallBlessings.Database\obj\Debug\Model.xml
+C:\Users\jpanella\Desktop\John.SocialClub\John.SocialClub\SmallBlessings.Database\obj\Debug\refactor.xml
+C:\Users\jpanella\Desktop\John.SocialClub\John.SocialClub\SmallBlessings.Database\obj\Debug\postdeploy.sql
+C:\Users\jpanella\Desktop\John.SocialClub\John.SocialClub\SmallBlessings.Database\obj\Debug\predeploy.sql
+C:\Users\jpanella\Desktop\SmallBlessing\SmallBlessing\SmallBlessings.Database\bin\Debug\SmallBlessings.Database.dacpac
+C:\Users\jpanella\Desktop\SmallBlessing\SmallBlessing\SmallBlessings.Database\bin\Debug\SmallBlessings.Database.dll
+C:\Users\jpanella\Desktop\SmallBlessing\SmallBlessing\SmallBlessings.Database\bin\Debug\SmallBlessings.Database.pdb
+C:\Users\jpanella\Desktop\SmallBlessing\SmallBlessing\SmallBlessings.Database\obj\Debug\SmallBlessings.Database.dll
+C:\Users\jpanella\Desktop\SmallBlessing\SmallBlessing\SmallBlessings.Database\obj\Debug\SmallBlessings.Database.pdb
