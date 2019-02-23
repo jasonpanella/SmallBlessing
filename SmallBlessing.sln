@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallBlessing.Desktop", "SmallBlessing.Desktop\SmallBlessing.Desktop.csproj", "{D282E168-4333-4C4D-892F-8D1AEE11D32C}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SmallBlessings.Database", "SmallBlessings.Database\SmallBlessings.Database.sqlproj", "{1583B56F-03AE-4C2A-ABC7-31359B05C5E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallBlessing.Data", "SmallBlessing.Data\SmallBlessing.Data.csproj", "{A0055EB5-0661-4CA3-9F07-0B9345553719}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions Items", "Solutions Items", "{5B51ECCE-489B-4070-BF89-7599EA0F82B0}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.txt = ReadMe.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D282E168-4333-4C4D-892F-8D1AEE11D32C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D282E168-4333-4C4D-892F-8D1AEE11D32C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D282E168-4333-4C4D-892F-8D1AEE11D32C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D282E168-4333-4C4D-892F-8D1AEE11D32C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1583B56F-03AE-4C2A-ABC7-31359B05C5E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1583B56F-03AE-4C2A-ABC7-31359B05C5E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1583B56F-03AE-4C2A-ABC7-31359B05C5E5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1583B56F-03AE-4C2A-ABC7-31359B05C5E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1583B56F-03AE-4C2A-ABC7-31359B05C5E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1583B56F-03AE-4C2A-ABC7-31359B05C5E5}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{A0055EB5-0661-4CA3-9F07-0B9345553719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0055EB5-0661-4CA3-9F07-0B9345553719}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0055EB5-0661-4CA3-9F07-0B9345553719}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0055EB5-0661-4CA3-9F07-0B9345553719}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {671B2D12-1E92-4974-BFFF-F4C8FFAE8BB7}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfstwocreeks.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = SmallBlessing.Data\\SmallBlessing.Data.csproj
+		SccProjectName1 = SmallBlessing.Data
+		SccLocalPath1 = SmallBlessing.Data
+		SccProjectUniqueName2 = SmallBlessing.Desktop\\SmallBlessing.Desktop.csproj
+		SccProjectName2 = SmallBlessing.Desktop
+		SccLocalPath2 = SmallBlessing.Desktop
+		SccProjectUniqueName3 = SmallBlessings.Database\\SmallBlessings.Database.sqlproj
+		SccProjectName3 = SmallBlessings.Database
+		SccLocalPath3 = SmallBlessings.Database
+	EndGlobalSection
+EndGlobal

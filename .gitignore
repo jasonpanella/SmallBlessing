@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Backup/SmallBlessing.Data/obj/Debug
+/Backup/SmallBlessing.Desktop/obj/x86/Debug
+/SmallBlessing.Data/obj/Debug
+/SmallBlessing.Desktop/obj/Debug
+/Backup/SmallBlessings.Database/obj/Debug
+/.vs/SmallBlessing/v15/Server/sqlite3
+/Backup/.vs/SmallBlessing/v15
